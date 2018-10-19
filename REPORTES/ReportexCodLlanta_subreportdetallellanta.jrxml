@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReportexCodLlanta_subreportdetallellanta" language="groovy" pageWidth="802" pageHeight="555" orientation="Landscape" columnWidth="802" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="fe366389-39f4-4b75-9f19-00bd22c2bade">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="CodLlanta" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="KmRecorridos" class="java.lang.Float" isForPrompting="false"/>
+	<parameter name="CantidadMovimientos" class="java.lang.Float" isForPrompting="false"/>
+	<queryString>
+		<![CDATA[SELECT
+     Mantenimiento_IngresoLlantasNuevas.`fecha` AS Mantenimiento_IngresoLlantasNuevas_fecha,
+     Mantenimiento_IngresoLlantasNuevas.`Cod_Llanta` AS Mantenimiento_IngresoLlantasNuevas_Cod_Llanta,
+     Mantenimiento_IngresoLlantasNuevas.`Marca` AS Mantenimiento_IngresoLlantasNuevas_Marca,
+     Mantenimiento_IngresoLlantasNuevas.`DOT` AS Mantenimiento_IngresoLlantasNuevas_DOT,
+     Mantenimiento_IngresoLlantasNuevas.`Profundidad` AS Mantenimiento_IngresoLlantasNuevas_Profundidad,
+     Mantenimiento_IngresoLlantasNuevas.`Proveedor` AS Mantenimiento_IngresoLlantasNuevas_Proveedor,
+     Mantenimiento_IngresoLlantasNuevas.`IdEmpresa` AS Mantenimiento_IngresoLlantasNuevas_IdEmpresa,
+     Mantenimiento_IngresoLlantasNuevas.`Status` AS Mantenimiento_IngresoLlantasNuevas_Status,
+     Mantenimiento_MarcasLlantas.`Marca` AS Mantenimiento_MarcasLlantas_Marca,
+     Mantenimiento_ProveedoresLlantas.`Nombre_Proveedor` AS Mantenimiento_ProveedoresLlantas_Nombre_Proveedor,
+     ListadoStatus.`Descripcion Estado` AS ListadoStatus_Descripcion_Estado
+FROM
+     `Mantenimiento_MarcasLlantas` Mantenimiento_MarcasLlantas INNER JOIN `Mantenimiento_IngresoLlantasNuevas` Mantenimiento_IngresoLlantasNuevas ON Mantenimiento_MarcasLlantas.`IdMarca` = Mantenimiento_IngresoLlantasNuevas.`Marca`
+     INNER JOIN `Mantenimiento_ProveedoresLlantas` Mantenimiento_ProveedoresLlantas ON Mantenimiento_IngresoLlantasNuevas.`Proveedor` = Mantenimiento_ProveedoresLlantas.`IdProveedor`
+     INNER JOIN `ListadoStatus` ListadoStatus ON Mantenimiento_IngresoLlantasNuevas.`Status` = ListadoStatus.`IdEstado`
+
+WHERE
+
+Mantenimiento_IngresoLlantasNuevas.`Cod_Llanta` = $P{CodLlanta}]]>
+	</queryString>
+	<field name="Mantenimiento_IngresoLlantasNuevas_fecha" class="java.sql.Date"/>
+	<field name="Mantenimiento_IngresoLlantasNuevas_Cod_Llanta" class="java.lang.String"/>
+	<field name="Mantenimiento_IngresoLlantasNuevas_Marca" class="java.lang.Integer"/>
+	<field name="Mantenimiento_IngresoLlantasNuevas_DOT" class="java.lang.Integer"/>
+	<field name="Mantenimiento_IngresoLlantasNuevas_Profundidad" class="java.lang.Float"/>
+	<field name="Mantenimiento_IngresoLlantasNuevas_Proveedor" class="java.lang.Integer"/>
+	<field name="Mantenimiento_IngresoLlantasNuevas_IdEmpresa" class="java.lang.Integer"/>
+	<field name="Mantenimiento_IngresoLlantasNuevas_Status" class="java.lang.Integer"/>
+	<field name="Mantenimiento_MarcasLlantas_Marca" class="java.lang.String"/>
+	<field name="Mantenimiento_ProveedoresLlantas_Nombre_Proveedor" class="java.lang.String"/>
+	<field name="ListadoStatus_Descripcion_Estado" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch"/>
+	</title>
+	<detail>
+		<band height="55" splitType="Stretch">
+			<textField>
+				<reportElement mode="Opaque" x="0" y="0" width="802" height="20" forecolor="#FFFFFF" backcolor="#003333" uuid="503635b9-bb7a-4720-bed6-29695fe92e19"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true" isUnderline="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["RESUMEN LLANTA: "+$P{CodLlanta}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="349" y="21" width="34" height="15" uuid="15c476be-de3f-4c45-bc90-673433db25bb"/>
+				<textElement textAlignment="Center">
+					<font isItalic="false" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[DOT]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="393" y="21" width="96" height="15" uuid="825dc9d7-08a6-4f1b-bfe1-a5a2fcff17b7"/>
+				<textElement textAlignment="Center">
+					<font isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Estado Actual]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="252" y="21" width="87" height="15" uuid="9f17f1d3-8154-47f7-b134-6680061cb74a"/>
+				<textElement textAlignment="Center">
+					<font isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Marca]]></text>
+			</staticText>
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement x="393" y="36" width="96" height="15" uuid="ddfab8d0-e87a-4fbb-a17c-df099d87d455"/>
+				<box>
+					<topPen lineWidth="1.5" lineStyle="Double" lineColor="#006699"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{ListadoStatus_Descripcion_Estado}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0;-###0">
+				<reportElement x="349" y="36" width="34" height="15" uuid="69e71ad8-3007-4979-a4b8-168ee39c46c4"/>
+				<box>
+					<topPen lineWidth="1.5" lineStyle="Double" lineColor="#006699"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{Mantenimiento_IngresoLlantasNuevas_DOT}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="252" y="36" width="87" height="14" uuid="079103a1-1eb7-4d74-9f79-e231510cf520"/>
+				<box>
+					<topPen lineWidth="1.5" lineStyle="Double" lineColor="#006699"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{Mantenimiento_MarcasLlantas_Marca}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="505" y="21" width="84" height="15" uuid="759eae74-cd93-4f86-a5c0-7f19353180b8"/>
+				<textElement textAlignment="Center">
+					<font isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Km_Recorridos]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="599" y="21" width="52" height="15" uuid="69a4aa2a-135b-419e-a69e-2a0522605636"/>
+				<textElement textAlignment="Center">
+					<font isBold="true" isItalic="false" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Total Mov.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="171" y="20" width="70" height="15" uuid="4918ded0-100f-4007-bcd9-4ae1e6487d03"/>
+				<textElement>
+					<font isBold="true" isItalic="false" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[FechaIngreso]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="171" y="36" width="70" height="14" uuid="b8c6d7ba-dee6-4eed-8b39-0572fe7b9e38"/>
+				<box>
+					<topPen lineWidth="1.5" lineStyle="Double" lineColor="#006699"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{Mantenimiento_IngresoLlantasNuevas_fecha}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="505" y="36" width="84" height="15" uuid="09ffd17e-72c2-4b04-99af-26c4e0e8b9b6"/>
+				<box>
+					<topPen lineWidth="1.5" lineStyle="Double" lineColor="#006699"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$P{KmRecorridos}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="599" y="36" width="52" height="15" uuid="429aa2d4-465d-4c17-a2d4-d789429d973f"/>
+				<box>
+					<pen lineStyle="Double"/>
+					<topPen lineWidth="1.5" lineStyle="Double" lineColor="#006699"/>
+					<leftPen lineStyle="Double"/>
+					<bottomPen lineStyle="Double"/>
+					<rightPen lineStyle="Double"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$P{CantidadMovimientos}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

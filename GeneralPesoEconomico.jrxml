@@ -1,0 +1,1022 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="752" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="538830d3-a307-4c8d-ab67-ff502f34049e">
+	<property name="ireport.zoom" value="1.1"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="568"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Crosstab Data Text" hAlign="Center"/>
+	<subDataset name="Sql" uuid="5f817a0a-c866-4ec1-9c72-22e6a4f69cc1">
+		<queryString language="SQL">
+			<![CDATA[SELECT
+     empleado."idEmpleado" AS empleado_idEmpleado,
+     empleado."nombre" AS empleado_nombre,
+     EVAL_anomalias."id_tipo" AS EVAL_anomalias_id_tipo,
+     EVAL_anomalias."Peso_imagen" AS EVAL_anomalias_Peso_imagen,
+     EVAL_anomalias."Peso_economico" AS EVAL_anomalias_Peso_economico,
+     EVAL_anomalias."Peso_global" AS EVAL_anomalias_Peso_global,
+     EVAL_incidencias."consecutivo" AS EVAL_incidencias_consecutivo,
+     EVAL_incidencias."id_tipo" AS EVAL_incidencias_id_tipo,
+     EVAL_incidencias."id_subtipo" AS EVAL_incidencias_id_subtipo,
+     EVAL_incidencias."cod_chofer" AS EVAL_incidencias_cod_chofer,
+     EVAL_incidencias."fecha" AS EVAL_incidencias_fecha,
+     EVAL_incidencias."id_bus" AS EVAL_incidencias_id_bus,
+     EVAL_incidencias."id_ruta" AS EVAL_incidencias_id_ruta,
+     EVAL_incidencias."hora" AS EVAL_incidencias_hora,
+     EVAL_incidencias."tiempo_perdido" AS EVAL_incidencias_tiempo_perdido,
+     EVAL_incidencias."km" AS EVAL_incidencias_km,
+     EVAL_incidencias."rendimiento" AS EVAL_incidencias_rendimiento,
+     EVAL_incidencias."lugar" AS EVAL_incidencias_lugar,
+     EVAL_incidencias."justificable" AS EVAL_incidencias_justificable,
+     EVAL_incidencias."culpable" AS EVAL_incidencias_culpable,
+     EVAL_incidencias."monto_exacto" AS EVAL_incidencias_monto_exacto,
+     EVAL_incidencias."comentario" AS EVAL_incidencias_comentario,
+     EVAL_anomalias."Descripcion" AS EVAL_anomalias_Descripcion
+FROM
+     "dbo"."empleado" empleado INNER JOIN "dbo"."EVAL_incidencias" EVAL_incidencias ON empleado."idEmpleado" = EVAL_incidencias."cod_chofer",
+     "dbo"."EVAL_anomalias" EVAL_anomalias]]>
+		</queryString>
+		<field name="EVAL_anomalias_Peso_economico" class="java.math.BigDecimal"/>
+		<field name="EVAL_anomalias_Peso_global" class="java.math.BigDecimal"/>
+		<field name="EVAL_incidencias_fecha" class="java.sql.Timestamp"/>
+		<field name="empleado_nombre" class="java.lang.String"/>
+		<field name="EVAL_anomalias_Peso_imagen" class="java.math.BigDecimal"/>
+		<field name="EVAL_incidencias_cod_chofer" class="java.lang.Integer"/>
+		<group name="EVAL_incidencias_cod_chofer">
+			<groupExpression><![CDATA[$F{EVAL_incidencias_cod_chofer}]]></groupExpression>
+		</group>
+	</subDataset>
+	<queryString>
+		<![CDATA[SELECT
+     EVAL_incidencias."consecutivo" AS EVAL_incidencias_consecutivo,
+     EVAL_incidencias."id_tipo" AS EVAL_incidencias_id_tipo,
+     EVAL_incidencias."id_subtipo" AS EVAL_incidencias_id_subtipo,
+     EVAL_incidencias."cod_chofer" AS EVAL_incidencias_cod_chofer,
+     EVAL_incidencias."fecha" AS EVAL_incidencias_fecha,
+     EVAL_incidencias."id_bus" AS EVAL_incidencias_id_bus,
+     EVAL_incidencias."id_ruta" AS EVAL_incidencias_id_ruta,
+     EVAL_incidencias."hora" AS EVAL_incidencias_hora,
+     EVAL_incidencias."tiempo_perdido" AS EVAL_incidencias_tiempo_perdido,
+     EVAL_incidencias."km" AS EVAL_incidencias_km,
+     EVAL_incidencias."rendimiento" AS EVAL_incidencias_rendimiento,
+     EVAL_incidencias."lugar" AS EVAL_incidencias_lugar,
+     EVAL_incidencias."justificable" AS EVAL_incidencias_justificable,
+     EVAL_incidencias."culpable" AS EVAL_incidencias_culpable,
+     EVAL_incidencias."monto_exacto" AS EVAL_incidencias_monto_exacto,
+     EVAL_incidencias."comentario" AS EVAL_incidencias_comentario,
+     EVAL_anomalias."id_tipo" AS EVAL_anomalias_id_tipo,
+     EVAL_anomalias."Descripcion" AS EVAL_anomalias_Descripcion,
+     EVAL_anomalias."Peso_imagen" AS EVAL_anomalias_Peso_imagen,
+     EVAL_anomalias."Peso_economico" AS EVAL_anomalias_Peso_economico,
+     EVAL_anomalias."Peso_global" AS EVAL_anomalias_Peso_global,
+     EVAL_subanomalia."Peso" AS EVAL_subanomalia_Peso,
+     EVAL_subanomalia."Descripcion" AS EVAL_subanomalia_Descripcion,
+     EVAL_subanomalia."id_subtipo" AS EVAL_subanomalia_id_subtipo,
+     empleado."idEmpleado" AS empleado_idEmpleado,
+     empleado."nombre" AS empleado_nombre,
+     empleado."asignado" AS empleado_asignado
+FROM
+     "dbo"."EVAL_anomalias" EVAL_anomalias FULL OUTER JOIN "dbo"."EVAL_incidencias" EVAL_incidencias ON EVAL_anomalias."id_tipo" = EVAL_incidencias."id_tipo"
+     INNER JOIN "dbo"."EVAL_subanomalia" EVAL_subanomalia ON EVAL_anomalias."id_tipo" = EVAL_subanomalia."id_tipo"
+     AND EVAL_subanomalia."id_subtipo" = EVAL_incidencias."id_subtipo"
+     INNER JOIN "dbo"."empleado" empleado ON EVAL_incidencias."cod_chofer" = empleado."idEmpleado"
+ORDER BY
+     EVAL_incidencias."cod_chofer" ASC,
+     EVAL_incidencias."id_tipo" ASC,
+     EVAL_incidencias."id_subtipo" ASC]]>
+	</queryString>
+	<field name="EVAL_incidencias_consecutivo" class="java.lang.Long"/>
+	<field name="EVAL_incidencias_id_tipo" class="java.lang.String"/>
+	<field name="EVAL_incidencias_id_subtipo" class="java.lang.String"/>
+	<field name="EVAL_incidencias_cod_chofer" class="java.lang.Integer"/>
+	<field name="EVAL_incidencias_fecha" class="java.sql.Timestamp"/>
+	<field name="EVAL_incidencias_id_bus" class="java.lang.Integer"/>
+	<field name="EVAL_incidencias_id_ruta" class="java.lang.String"/>
+	<field name="EVAL_incidencias_hora" class="java.lang.String"/>
+	<field name="EVAL_incidencias_tiempo_perdido" class="java.lang.Integer"/>
+	<field name="EVAL_incidencias_km" class="java.lang.Double"/>
+	<field name="EVAL_incidencias_rendimiento" class="java.lang.Double"/>
+	<field name="EVAL_incidencias_lugar" class="java.lang.String"/>
+	<field name="EVAL_incidencias_justificable" class="java.lang.String"/>
+	<field name="EVAL_incidencias_culpable" class="java.lang.String"/>
+	<field name="EVAL_incidencias_monto_exacto" class="java.lang.Double"/>
+	<field name="EVAL_incidencias_comentario" class="java.lang.String"/>
+	<field name="EVAL_anomalias_id_tipo" class="java.lang.String"/>
+	<field name="EVAL_anomalias_Descripcion" class="java.lang.String"/>
+	<field name="EVAL_anomalias_Peso_imagen" class="java.math.BigDecimal"/>
+	<field name="EVAL_anomalias_Peso_economico" class="java.math.BigDecimal"/>
+	<field name="EVAL_anomalias_Peso_global" class="java.math.BigDecimal"/>
+	<field name="EVAL_subanomalia_Peso" class="java.math.BigDecimal"/>
+	<field name="EVAL_subanomalia_Descripcion" class="java.lang.String"/>
+	<field name="EVAL_subanomalia_id_subtipo" class="java.lang.String"/>
+	<field name="empleado_idEmpleado" class="java.lang.Integer"/>
+	<field name="empleado_nombre" class="java.lang.String"/>
+	<field name="empleado_asignado" class="java.lang.String"/>
+	<variable name="SUM_PESO_ECO" class="java.math.BigDecimal" resetType="Group" resetGroup="CodChofer" calculation="Sum">
+		<variableExpression><![CDATA[$F{EVAL_anomalias_Peso_economico}]]></variableExpression>
+		<initialValueExpression><![CDATA[$F{EVAL_anomalias_Peso_economico}]]></initialValueExpression>
+	</variable>
+	<variable name="SUM_PESO_IMG" class="java.math.BigDecimal" resetType="Group" resetGroup="CodChofer" calculation="Sum">
+		<variableExpression><![CDATA[$F{EVAL_anomalias_Peso_imagen}]]></variableExpression>
+		<initialValueExpression><![CDATA[$F{EVAL_anomalias_Peso_imagen}]]></initialValueExpression>
+	</variable>
+	<variable name="SUM_PESO" class="java.math.BigDecimal" resetType="Group" resetGroup="CodChofer" calculation="Sum">
+		<variableExpression><![CDATA[$F{EVAL_anomalias_Peso_global}]]></variableExpression>
+		<initialValueExpression><![CDATA[$F{EVAL_anomalias_Peso_global}]]></initialValueExpression>
+	</variable>
+	<variable name="CONTA_CHOFERES" class="java.lang.Integer" resetType="None" incrementType="Group" incrementGroup="CodChofer" calculation="DistinctCount">
+		<variableExpression><![CDATA[$V{CONTA_CHOFERES}+1]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
+	<variable name="CalPesEco" class="java.math.BigDecimal" resetType="Group" resetGroup="CodChofer" incrementType="Group" incrementGroup="CodChofer">
+		<variableExpression><![CDATA[100-$V{SUM_PESO_ECO}]]></variableExpression>
+	</variable>
+	<variable name="CalPesoImg" class="java.math.BigDecimal" resetType="Group" resetGroup="CodChofer" incrementType="Group" incrementGroup="CodChofer">
+		<variableExpression><![CDATA[100-$V{SUM_PESO_IMG}]]></variableExpression>
+	</variable>
+	<variable name="CalPesoGlobal" class="java.math.BigDecimal" resetType="Group" resetGroup="CodChofer" incrementType="Group" incrementGroup="CodChofer">
+		<variableExpression><![CDATA[100-$V{SUM_PESO}]]></variableExpression>
+	</variable>
+	<group name="CodChofer" isStartNewPage="true" isReprintHeaderOnEachPage="true">
+		<groupExpression><![CDATA[$F{EVAL_incidencias_cod_chofer}]]></groupExpression>
+		<groupHeader>
+			<band height="24">
+				<textField pattern="">
+					<reportElement uuid="57c68c7d-285c-499b-8b22-14f6f203d4bf" mode="Opaque" x="0" y="0" width="752" height="21" backcolor="#999999"/>
+					<textElement textAlignment="Center">
+						<font size="14" isBold="true" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA["COD CHOFER: "+$F{EVAL_incidencias_cod_chofer}+"               "+$F{empleado_nombre}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="40">
+				<textField>
+					<reportElement uuid="b7a047e7-b4a8-47d5-82ca-bacd7677204f" mode="Opaque" x="0" y="0" width="170" height="20" backcolor="#FFFF00"/>
+					<textElement textAlignment="Right"/>
+					<textFieldExpression><![CDATA["EVA.PESO ECO:"]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="138c679b-fb9c-48b3-a1e8-d6c50c31fa95" mode="Opaque" x="170" y="0" width="52" height="20" backcolor="#FFFF00"/>
+					<textElement/>
+					<textFieldExpression><![CDATA[$V{SUM_PESO_ECO}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="c17dbc32-05b7-4a29-b9b7-89892b9e2c2f" mode="Opaque" x="222" y="0" width="98" height="20" backcolor="#FFFF00"/>
+					<textElement/>
+					<textFieldExpression><![CDATA["EVA.PESO IMG:"]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="b44ae25e-6c33-4e71-a919-a3327116bf9f" mode="Opaque" x="320" y="0" width="43" height="20" backcolor="#FFFF00"/>
+					<textElement/>
+					<textFieldExpression><![CDATA[$V{SUM_PESO_IMG}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="38b42759-89de-4269-9a91-6dd30b038b17" mode="Opaque" x="363" y="0" width="73" height="20" backcolor="#FFFF00"/>
+					<textElement/>
+					<textFieldExpression><![CDATA["PESO ANOM:"]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="462544aa-7c58-4ed4-9a97-8674ab30a2a0" mode="Opaque" x="436" y="0" width="316" height="20" backcolor="#FFFF00"/>
+					<textElement/>
+					<textFieldExpression><![CDATA[$V{SUM_PESO}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="b3d149fa-3062-4b76-8900-97e4de02625e" mode="Opaque" x="170" y="20" width="45" height="20" backcolor="#FFFF00"/>
+					<textElement/>
+					<textFieldExpression><![CDATA[$V{CalPesEco}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="b0a197e9-81d3-4f46-81d7-0da80c023341" mode="Opaque" x="215" y="20" width="105" height="20" backcolor="#FFFF00"/>
+					<textElement/>
+					<textFieldExpression><![CDATA["CALIFICACION IMG: "]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="e519fafe-23c4-498f-b93d-026a8bda28ec" mode="Opaque" x="320" y="20" width="43" height="20" backcolor="#FFFF00"/>
+					<textElement/>
+					<textFieldExpression><![CDATA[$V{CalPesoImg}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="5b519484-4cd6-47d1-b86a-c36837b6e0de" mode="Opaque" x="363" y="20" width="100" height="20" backcolor="#FFFF00"/>
+					<textElement/>
+					<textFieldExpression><![CDATA["CALIFICACION PG: "]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="701fb376-3aaf-441f-a8ba-0eb647d5fd18" mode="Opaque" x="463" y="20" width="289" height="20" backcolor="#FFFF00"/>
+					<textElement/>
+					<textFieldExpression><![CDATA[$V{CalPesoGlobal}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="76722c34-bf10-4356-9ff7-6034af2e2880" mode="Opaque" x="0" y="20" width="170" height="20" backcolor="#FFFF00"/>
+					<textElement textAlignment="Right"/>
+					<textFieldExpression><![CDATA["CALIFICACION: "]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="TipoAnomalia" isReprintHeaderOnEachPage="true" keepTogether="true">
+		<groupExpression><![CDATA[$F{EVAL_incidencias_id_tipo}]]></groupExpression>
+		<groupHeader>
+			<band height="19">
+				<textField>
+					<reportElement uuid="30b737ca-e6e5-4c9a-bbe7-e0c73ac6100f" mode="Opaque" x="0" y="0" width="752" height="17" backcolor="#66CCFF"/>
+					<textElement textAlignment="Center">
+						<font size="12" isBold="true" isUnderline="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{EVAL_anomalias_Descripcion}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+	</group>
+	<group name="SubAnomalia" isReprintHeaderOnEachPage="true" keepTogether="true">
+		<groupExpression><![CDATA[$F{EVAL_incidencias_id_subtipo}]]></groupExpression>
+		<groupHeader>
+			<band height="45">
+				<textField>
+					<reportElement uuid="72349be1-6f27-4603-9d7a-141b70d17069" mode="Opaque" x="0" y="0" width="752" height="20" backcolor="#FFFFFF"/>
+					<textElement textAlignment="Center"/>
+					<textFieldExpression><![CDATA[$F{EVAL_subanomalia_Descripcion}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="146d95fa-325f-466f-a703-8c72a8144fc8" x="0" y="22" width="100" height="20"/>
+					<textElement/>
+					<textFieldExpression><![CDATA["FECHA"]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="1e5e27e8-7dbf-465b-a3a5-fa62c7adfb96" x="100" y="22" width="49" height="20" isRemoveLineWhenBlank="true"/>
+					<textElement/>
+					<textFieldExpression><![CDATA[($F{EVAL_anomalias_Descripcion}.contentEquals( "Ausencias" ))?"JUSTIFICABLE":($F{EVAL_anomalias_Descripcion}.contentEquals( "Ausencias"))?"":"BUS"]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="5911c03a-ef13-4643-8c12-ad0800111245" x="150" y="22" width="47" height="20" isRemoveLineWhenBlank="true"/>
+					<textElement/>
+					<textFieldExpression><![CDATA[($F{EVAL_anomalias_Descripcion}.contentEquals("Ausencias")|| $F{EVAL_anomalias_Descripcion}.contentEquals( "Cedulas" ))?"":"RUTA"]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="a42b7096-bc88-4c7e-8a35-04dd55179444" x="492" y="22" width="92" height="20"/>
+					<textElement/>
+					<textFieldExpression><![CDATA["peso economico"]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="a64b086f-6b1a-4d20-a1e7-cadb8531a413" x="596" y="22" width="75" height="20"/>
+					<textElement/>
+					<textFieldExpression><![CDATA["peso imagen"]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="f44c78b6-e634-43a1-a8bd-c301e2698630" x="682" y="22" width="54" height="20"/>
+					<textElement/>
+					<textFieldExpression><![CDATA["PESO"]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="cf680db9-83c7-4ded-92f3-3b91054e5e91" x="197" y="22" width="44" height="20" isRemoveLineWhenBlank="true"/>
+					<textElement/>
+					<textFieldExpression><![CDATA[($F{EVAL_anomalias_Descripcion}.contentEquals("Ausencias")||$F{EVAL_anomalias_Descripcion}.contentEquals("Cedulas")||$F{EVAL_anomalias_Descripcion}.contentEquals("Rendimientos"))?"":"HORA"]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="985992e0-1fac-4083-95be-1317da95cc80" x="241" y="22" width="79" height="20" isRemoveLineWhenBlank="true"/>
+					<textElement/>
+					<textFieldExpression><![CDATA[($F{EVAL_anomalias_Descripcion}.contentEquals("Tardias"))?"TIEMPO PERDIDO":($F{EVAL_anomalias_Descripcion}.contentEquals( "Colisiones" ))?"Monto":($F{EVAL_anomalias_Descripcion}.startsWith( "R"))?"Kilometraje":""]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="f3961234-c6f2-4e0c-9657-a97083b7e207" x="320" y="22" width="58" height="20" isRemoveLineWhenBlank="true"/>
+					<textElement/>
+					<textFieldExpression><![CDATA[($F{EVAL_anomalias_Descripcion}.startsWith("R" ))?"RENDIMIENTO":($F{EVAL_anomalias_Descripcion}.contentEquals("Colisiones"))?"CULPABLE":""]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<textField>
+				<reportElement uuid="66a9fd33-ecd4-4395-8573-d96bfc97eac0" x="100" y="0" width="599" height="27"/>
+				<textElement>
+					<font size="21" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["EVALUACION DE CONDUCTORES"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="9fbfcc17-d814-4d2c-8279-d1255ffb9ece" x="105" y="27" width="599" height="23"/>
+				<textElement>
+					<font size="18" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Estado general de faltas positivas y negativas del conductor"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="ac1f9a7d-eb05-4e87-8a3d-2ab72bb58b34" x="105" y="50" width="599" height="29"/>
+				<textElement>
+					<font size="16"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Compania de Inversiones la Tapachula S.A. - CILT"]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement uuid="d6e4e01c-3002-4433-8521-33e1db42832c" x="41" y="0" width="64" height="78"/>
+				<imageExpression><![CDATA["C:\\Users\\erobles\\Desktop\\logocilt.png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="22" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="94" splitType="Stretch">
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement uuid="569e8f16-bddf-48ce-929a-01f1738756c6" x="0" y="0" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{EVAL_incidencias_fecha}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="7d34f541-cb95-4703-a5a5-e665a2d2c097" x="100" y="0" width="49" height="20" isRemoveLineWhenBlank="true"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[($F{EVAL_anomalias_Descripcion}.contentEquals( "Ausencias"))?"":$F{EVAL_incidencias_id_bus}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="d06d1a51-b71d-4e2c-a7d7-8151722a5b12" x="149" y="0" width="47" height="20" isRemoveLineWhenBlank="true"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[($F{EVAL_anomalias_Descripcion}.contentEquals("Ausencias")|| $F{EVAL_anomalias_Descripcion}.contentEquals( "Cedulas" ))?"":$F{EVAL_incidencias_id_ruta}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="59dbcf4a-c34c-4e07-a9bd-a845278108ea" x="492" y="0" width="92" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{EVAL_anomalias_Peso_economico}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="8ccb40cd-7e0b-498d-b47f-4733ac907027" x="596" y="0" width="75" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{EVAL_anomalias_Peso_imagen}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="b20592dc-13d2-4b9c-ae0b-990fd87ed752" x="682" y="0" width="54" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{EVAL_anomalias_Peso_global}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="false">
+				<reportElement uuid="77aa93db-f123-4179-9d3d-017602962704" x="105" y="34" width="630" height="20" isRemoveLineWhenBlank="true"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{EVAL_incidencias_comentario}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="ba639599-4bd5-4931-b155-a0973d59889f" x="22" y="34" width="83" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[COMENTARIOS:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="3d14f826-1aea-4b3b-95ab-87137942f0f1" x="22" y="65" width="83" height="20"/>
+				<textElement/>
+				<text><![CDATA[LUGAR:]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="53cb2ffa-6bd3-465b-8194-39169d35af46" x="105" y="65" width="630" height="20" isRemoveLineWhenBlank="true"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{EVAL_incidencias_lugar}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="32a17e97-2ce8-418b-92c2-c99c03e60cb9" x="197" y="0" width="44" height="20" isRemoveLineWhenBlank="true"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[($F{EVAL_anomalias_Descripcion}.contentEquals("Ausencias")||$F{EVAL_anomalias_Descripcion}.contentEquals("Cedulas")||$F{EVAL_anomalias_Descripcion}.contentEquals("Rendimientos"))?"":$F{EVAL_incidencias_hora}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="fa496073-1527-416b-9988-211982b4448d" x="241" y="0" width="79" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[($F{EVAL_anomalias_Descripcion}.contentEquals("Tardias"))?$F{EVAL_incidencias_tiempo_perdido}:($F{EVAL_anomalias_Descripcion}.contentEquals( "Colisiones" ))?$F{EVAL_incidencias_monto_exacto}:($F{EVAL_anomalias_Descripcion}.startsWith( "R"))?$F{EVAL_incidencias_km}:""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="9680bfa3-03ce-4539-af00-63cd61f1065c" x="320" y="0" width="58" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[($F{EVAL_anomalias_Descripcion}.startsWith("R" ))?$F{EVAL_incidencias_rendimiento}:($F{EVAL_anomalias_Descripcion}.contentEquals("Colisiones"))?$F{EVAL_incidencias_culpable}:""]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement uuid="c2c1ceb5-c8bc-4773-8117-5a05974dbbd2" x="12" y="92" width="724" height="1"/>
+				<graphicElement>
+					<pen lineStyle="Dashed" lineColor="#0066FF"/>
+				</graphicElement>
+			</line>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="48" splitType="Stretch">
+			<textField>
+				<reportElement uuid="33ae64aa-4db3-47c9-9587-f1c177118b34" x="692" y="2" width="60" height="24"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="572" splitType="Prevent">
+			<textField>
+				<reportElement uuid="665779a4-2ee8-461f-8a49-6e993e739df9" x="0" y="0" width="752" height="53"/>
+				<textElement textAlignment="Center">
+					<font size="18"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Resumen de calificaciones sobre Evaluacion de Peso Economico"+"\r\n"+
+"Cantidad de Conductores Evaluados:" +($V{CONTA_CHOFERES}+1)]]></textFieldExpression>
+			</textField>
+			<crosstab ignoreWidth="true">
+				<reportElement uuid="3df1be87-0b4e-43af-a8b9-f18e3232e494" x="0" y="53" width="752" height="17"/>
+				<crosstabHeaderCell>
+					<cellContents/>
+				</crosstabHeaderCell>
+				<rowGroup name="empleado_asignado" width="84" totalPosition="End">
+					<bucket class="java.lang.String">
+						<bucketExpression><![CDATA[$F{empleado_asignado}]]></bucketExpression>
+					</bucket>
+					<crosstabRowHeader>
+						<cellContents backcolor="#F0F8FF" mode="Opaque">
+							<box>
+								<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+							</box>
+							<textField>
+								<reportElement uuid="fd6ecdb5-83c5-4955-9e23-3291062fda1f" style="Crosstab Data Text" x="0" y="0" width="84" height="50"/>
+								<textElement/>
+								<textFieldExpression><![CDATA[$V{empleado_asignado}]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabRowHeader>
+					<crosstabTotalRowHeader>
+						<cellContents backcolor="#005FB3" mode="Opaque">
+							<box>
+								<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+							</box>
+						</cellContents>
+					</crosstabTotalRowHeader>
+				</rowGroup>
+				<rowGroup name="empleado_nombre" width="216" totalPosition="End">
+					<bucket class="java.lang.String">
+						<bucketExpression><![CDATA[$F{empleado_nombre}]]></bucketExpression>
+					</bucket>
+					<crosstabRowHeader>
+						<cellContents backcolor="#F0F8FF" mode="Opaque">
+							<box>
+								<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+							</box>
+							<textField>
+								<reportElement uuid="6e042bb2-51a4-4141-b859-5188de219d73" style="Crosstab Data Text" x="0" y="0" width="216" height="25"/>
+								<textElement/>
+								<textFieldExpression><![CDATA[$V{empleado_nombre}]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabRowHeader>
+					<crosstabTotalRowHeader>
+						<cellContents backcolor="#BFE1FF" mode="Opaque">
+							<box>
+								<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+							</box>
+							<staticText>
+								<reportElement uuid="bc29e816-66e1-4579-a572-d2a5e1b63f56" x="0" y="0" width="111" height="25"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<text><![CDATA[Total pesos por dia]]></text>
+							</staticText>
+						</cellContents>
+					</crosstabTotalRowHeader>
+				</rowGroup>
+				<columnGroup name="EVAL_incidencias_fecha" height="30" totalPosition="End">
+					<bucket class="java.sql.Timestamp">
+						<bucketExpression><![CDATA[$F{EVAL_incidencias_fecha}]]></bucketExpression>
+					</bucket>
+					<crosstabColumnHeader>
+						<cellContents backcolor="#F0F8FF" mode="Opaque">
+							<box>
+								<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+							</box>
+							<textField>
+								<reportElement uuid="3cdda974-9614-4f96-a82d-422f2b9fab42" style="Crosstab Data Text" x="0" y="0" width="45" height="30"/>
+								<textElement/>
+								<textFieldExpression><![CDATA[$V{EVAL_incidencias_fecha}]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabColumnHeader>
+					<crosstabTotalColumnHeader>
+						<cellContents backcolor="#BFE1FF" mode="Opaque">
+							<box>
+								<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+							</box>
+							<staticText>
+								<reportElement uuid="2f114b34-ab56-4819-8b3d-e2309eb71b4d" x="0" y="0" width="80" height="30"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<text><![CDATA[NOTA]]></text>
+							</staticText>
+						</cellContents>
+					</crosstabTotalColumnHeader>
+				</columnGroup>
+				<measure name="SUM_PESO_ECOMeasure" class="java.math.BigDecimal" calculation="Sum">
+					<measureExpression><![CDATA[$F{EVAL_anomalias_Peso_economico}]]></measureExpression>
+				</measure>
+				<measure name="PROM_PESO_ECO" class="java.math.BigDecimal" calculation="Average">
+					<measureExpression><![CDATA[$F{EVAL_anomalias_Peso_economico}]]></measureExpression>
+				</measure>
+				<measure name="SUM_PESO_IMG" class="java.math.BigDecimal" calculation="Sum">
+					<measureExpression><![CDATA[$F{EVAL_anomalias_Peso_imagen}]]></measureExpression>
+				</measure>
+				<crosstabCell width="46" height="25">
+					<cellContents>
+						<box>
+							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textField>
+							<reportElement uuid="34b700c0-803e-4868-b7cd-cfcd93a93866" style="Crosstab Data Text" x="0" y="0" width="45" height="25"/>
+							<textElement/>
+							<textFieldExpression><![CDATA[$V{SUM_PESO_ECOMeasure}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="46" height="0" rowTotalGroup="empleado_asignado">
+					<cellContents backcolor="#005FB3" mode="Opaque">
+						<box>
+							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="80" height="25" columnTotalGroup="EVAL_incidencias_fecha">
+					<cellContents backcolor="#BFE1FF" mode="Opaque">
+						<box>
+							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textField>
+							<reportElement uuid="19852db2-118e-4747-be62-d565bc7f0b5f" style="Crosstab Data Text" x="0" y="0" width="80" height="25"/>
+							<textElement/>
+							<textFieldExpression><![CDATA[100-$V{SUM_PESO_ECOMeasure_EVAL_incidencias_fecha_ALL}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="80" height="0" rowTotalGroup="empleado_asignado" columnTotalGroup="EVAL_incidencias_fecha">
+					<cellContents backcolor="#005FB3" mode="Opaque">
+						<box>
+							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="46" height="25" rowTotalGroup="empleado_nombre">
+					<cellContents backcolor="#BFE1FF" mode="Opaque">
+						<box>
+							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textField>
+							<reportElement uuid="1cc4fbf9-67d6-4dd3-b5d9-73436a73353a" style="Crosstab Data Text" x="0" y="0" width="45" height="25"/>
+							<textElement/>
+							<textFieldExpression><![CDATA[$V{SUM_PESO_ECOMeasure}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="80" height="25" rowTotalGroup="empleado_nombre" columnTotalGroup="EVAL_incidencias_fecha">
+					<cellContents backcolor="#BFE1FF" mode="Opaque">
+						<box>
+							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textField>
+							<reportElement uuid="17a842ea-b9f5-4dd8-b434-c85459a47331" style="Crosstab Data Text" x="0" y="0" width="80" height="25"/>
+							<textElement/>
+							<textFieldExpression><![CDATA[$V{SUM_PESO_ECOMeasure}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+			</crosstab>
+			<break>
+				<reportElement uuid="a2091fe6-002b-4604-afec-0477b5d21ed3" x="0" y="70" width="752" height="1"/>
+			</break>
+			<textField>
+				<reportElement uuid="665779a4-2ee8-461f-8a49-6e993e739df9" x="0" y="71" width="752" height="53"/>
+				<textElement textAlignment="Center">
+					<font size="18"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Resumen de calificaciones sobre Evaluacion de Peso Imagen "+"\r\n"+
+"Cantidad de Conductores Evaluados:" +($V{CONTA_CHOFERES}+1)]]></textFieldExpression>
+			</textField>
+			<crosstab>
+				<reportElement uuid="70555e34-c062-4c54-af97-9d6b38a756bd" x="0" y="124" width="752" height="23"/>
+				<rowGroup name="empleado_asignado" width="92" totalPosition="End">
+					<bucket class="java.lang.String">
+						<bucketExpression><![CDATA[$F{empleado_asignado}]]></bucketExpression>
+					</bucket>
+					<crosstabRowHeader>
+						<cellContents backcolor="#F0F8FF" mode="Opaque">
+							<box>
+								<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+							</box>
+							<textField>
+								<reportElement uuid="006e6c2c-0344-46eb-81a8-aece3af2e3ea" style="Crosstab Data Text" x="0" y="0" width="92" height="50"/>
+								<textElement/>
+								<textFieldExpression><![CDATA[$V{empleado_asignado}]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabRowHeader>
+					<crosstabTotalRowHeader>
+						<cellContents backcolor="#005FB3" mode="Opaque">
+							<box>
+								<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+							</box>
+						</cellContents>
+					</crosstabTotalRowHeader>
+				</rowGroup>
+				<rowGroup name="empleado_nombre" width="201" totalPosition="End">
+					<bucket class="java.lang.String">
+						<bucketExpression><![CDATA[$F{empleado_nombre}]]></bucketExpression>
+					</bucket>
+					<crosstabRowHeader>
+						<cellContents backcolor="#F0F8FF" mode="Opaque">
+							<box>
+								<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+							</box>
+							<textField>
+								<reportElement uuid="76c583b5-2918-4160-be62-87632e4dfa4c" style="Crosstab Data Text" x="0" y="0" width="201" height="25"/>
+								<textElement/>
+								<textFieldExpression><![CDATA[$V{empleado_nombre}]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabRowHeader>
+					<crosstabTotalRowHeader>
+						<cellContents backcolor="#BFE1FF" mode="Opaque">
+							<box>
+								<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+							</box>
+							<staticText>
+								<reportElement uuid="e63700d0-7b55-4627-8927-a2e8425730bc" x="0" y="0" width="201" height="25"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<text><![CDATA[Total pesos imagen]]></text>
+							</staticText>
+						</cellContents>
+					</crosstabTotalRowHeader>
+				</rowGroup>
+				<columnGroup name="EVAL_incidencias_fecha" height="30" totalPosition="End">
+					<bucket class="java.sql.Timestamp">
+						<bucketExpression><![CDATA[$F{EVAL_incidencias_fecha}]]></bucketExpression>
+					</bucket>
+					<crosstabColumnHeader>
+						<cellContents backcolor="#F0F8FF" mode="Opaque">
+							<box>
+								<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+							</box>
+							<textField>
+								<reportElement uuid="2a2cac71-dbba-4691-805f-6ce492432f26" style="Crosstab Data Text" x="0" y="0" width="50" height="30"/>
+								<textElement/>
+								<textFieldExpression><![CDATA[$V{EVAL_incidencias_fecha}]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabColumnHeader>
+					<crosstabTotalColumnHeader>
+						<cellContents backcolor="#BFE1FF" mode="Opaque">
+							<box>
+								<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+							</box>
+							<staticText>
+								<reportElement uuid="9376b175-f0d3-491a-b34f-42662088e076" x="0" y="0" width="50" height="30"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<text><![CDATA[NOTA]]></text>
+							</staticText>
+						</cellContents>
+					</crosstabTotalColumnHeader>
+				</columnGroup>
+				<measure name="EVAL_anomalias_Peso_imagenMeasure" class="java.math.BigDecimal" calculation="Sum">
+					<measureExpression><![CDATA[$F{EVAL_anomalias_Peso_imagen}]]></measureExpression>
+				</measure>
+				<crosstabCell width="51" height="25">
+					<cellContents>
+						<box>
+							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textField>
+							<reportElement uuid="589b0f1c-1b4b-4519-bc95-dd47bdb0a7ff" style="Crosstab Data Text" x="0" y="0" width="50" height="25"/>
+							<textElement/>
+							<textFieldExpression><![CDATA[$V{EVAL_anomalias_Peso_imagenMeasure}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="51" height="0" rowTotalGroup="empleado_asignado">
+					<cellContents backcolor="#005FB3" mode="Opaque">
+						<box>
+							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="50" columnTotalGroup="EVAL_incidencias_fecha">
+					<cellContents backcolor="#BFE1FF" mode="Opaque">
+						<box>
+							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textField>
+							<reportElement uuid="ac5e57b9-2f00-4297-9684-054565d09c16" style="Crosstab Data Text" x="0" y="0" width="50" height="25"/>
+							<textElement/>
+							<textFieldExpression><![CDATA[100-$V{EVAL_anomalias_Peso_imagenMeasure_EVAL_incidencias_fecha_ALL}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="50" height="0" rowTotalGroup="empleado_asignado" columnTotalGroup="EVAL_incidencias_fecha">
+					<cellContents backcolor="#005FB3" mode="Opaque">
+						<box>
+							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="51" height="25" rowTotalGroup="empleado_nombre">
+					<cellContents backcolor="#BFE1FF" mode="Opaque">
+						<box>
+							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textField>
+							<reportElement uuid="5d34c3c5-fca9-4f34-a307-612523b26430" style="Crosstab Data Text" x="0" y="0" width="50" height="25"/>
+							<textElement/>
+							<textFieldExpression><![CDATA[$V{EVAL_anomalias_Peso_imagenMeasure}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="50" rowTotalGroup="empleado_nombre" columnTotalGroup="EVAL_incidencias_fecha">
+					<cellContents backcolor="#BFE1FF" mode="Opaque">
+						<box>
+							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textField>
+							<reportElement uuid="00f31fbf-e018-4acf-9a69-74c7d3fe83be" style="Crosstab Data Text" x="0" y="0" width="50" height="25"/>
+							<textElement/>
+							<textFieldExpression><![CDATA[$V{EVAL_anomalias_Peso_imagenMeasure}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+			</crosstab>
+			<break>
+				<reportElement uuid="37e4028e-f2b1-4153-a8f9-66569a617160" x="0" y="147" width="752" height="1"/>
+			</break>
+			<textField>
+				<reportElement uuid="665779a4-2ee8-461f-8a49-6e993e739df9" x="0" y="148" width="752" height="53"/>
+				<textElement textAlignment="Center">
+					<font size="18"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Resumen de calificaciones sobre Evaluacion de Peso Global "+"\r\n"+
+"Cantidad de Conductores Evaluados:" +($V{CONTA_CHOFERES}+1)]]></textFieldExpression>
+			</textField>
+			<crosstab ignoreWidth="true">
+				<reportElement uuid="9f48d65c-b14b-4659-af56-cc114ca8561c" x="0" y="201" width="752" height="27"/>
+				<rowGroup name="empleado_asignado" width="91" totalPosition="End">
+					<bucket class="java.lang.String">
+						<bucketExpression><![CDATA[$F{empleado_asignado}]]></bucketExpression>
+					</bucket>
+					<crosstabRowHeader>
+						<cellContents backcolor="#F0F8FF" mode="Opaque">
+							<box>
+								<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+							</box>
+							<textField>
+								<reportElement uuid="66b446c2-7e62-4805-8ab6-9b9c73f015fb" style="Crosstab Data Text" x="0" y="0" width="91" height="50"/>
+								<textElement/>
+								<textFieldExpression><![CDATA[$V{empleado_asignado}]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabRowHeader>
+					<crosstabTotalRowHeader>
+						<cellContents backcolor="#005FB3" mode="Opaque">
+							<box>
+								<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+							</box>
+						</cellContents>
+					</crosstabTotalRowHeader>
+				</rowGroup>
+				<rowGroup name="empleado_nombre" width="199" totalPosition="End">
+					<bucket class="java.lang.String">
+						<bucketExpression><![CDATA[$F{empleado_nombre}]]></bucketExpression>
+					</bucket>
+					<crosstabRowHeader>
+						<cellContents backcolor="#F0F8FF" mode="Opaque">
+							<box>
+								<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+							</box>
+							<textField>
+								<reportElement uuid="b7557c71-3f4f-4c55-974a-4a0f66507e56" style="Crosstab Data Text" x="0" y="0" width="199" height="25"/>
+								<textElement/>
+								<textFieldExpression><![CDATA[$V{empleado_nombre}]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabRowHeader>
+					<crosstabTotalRowHeader>
+						<cellContents backcolor="#BFE1FF" mode="Opaque">
+							<box>
+								<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+							</box>
+							<staticText>
+								<reportElement uuid="7524d7c7-7dcf-4fb6-9ee6-01c60d7debc8" x="0" y="0" width="199" height="25"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<text><![CDATA[Total pesos ]]></text>
+							</staticText>
+						</cellContents>
+					</crosstabTotalRowHeader>
+				</rowGroup>
+				<columnGroup name="EVAL_incidencias_fecha" height="30" totalPosition="End">
+					<bucket class="java.sql.Timestamp">
+						<bucketExpression><![CDATA[$F{EVAL_incidencias_fecha}]]></bucketExpression>
+					</bucket>
+					<crosstabColumnHeader>
+						<cellContents backcolor="#F0F8FF" mode="Opaque">
+							<box>
+								<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+							</box>
+							<textField>
+								<reportElement uuid="d9cdcb17-29be-49e3-a502-dd0eb5ae77ea" style="Crosstab Data Text" x="0" y="0" width="50" height="30"/>
+								<textElement/>
+								<textFieldExpression><![CDATA[$V{EVAL_incidencias_fecha}]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabColumnHeader>
+					<crosstabTotalColumnHeader>
+						<cellContents backcolor="#BFE1FF" mode="Opaque">
+							<box>
+								<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+							</box>
+							<staticText>
+								<reportElement uuid="32342dd0-feb4-485c-aec8-6660eab49641" x="0" y="0" width="61" height="30"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<text><![CDATA[NOTA]]></text>
+							</staticText>
+						</cellContents>
+					</crosstabTotalColumnHeader>
+				</columnGroup>
+				<measure name="EVAL_anomalias_Peso_globalMeasure" class="java.lang.Integer" calculation="Sum">
+					<measureExpression><![CDATA[$F{EVAL_anomalias_Peso_global}]]></measureExpression>
+				</measure>
+				<measure name="promediopeso" class="java.lang.Float" calculation="Average" percentageOf="GrandTotal">
+					<measureExpression><![CDATA[$F{EVAL_anomalias_Peso_global}]]></measureExpression>
+				</measure>
+				<crosstabCell width="51" height="25">
+					<cellContents>
+						<box>
+							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textField>
+							<reportElement uuid="1022b39b-c5f6-4d27-ad88-4f6d232739eb" style="Crosstab Data Text" x="0" y="0" width="50" height="25"/>
+							<textElement/>
+							<textFieldExpression><![CDATA[$V{EVAL_anomalias_Peso_globalMeasure}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="51" height="0" rowTotalGroup="empleado_asignado">
+					<cellContents backcolor="#005FB3" mode="Opaque">
+						<box>
+							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="61" height="25" columnTotalGroup="EVAL_incidencias_fecha">
+					<cellContents backcolor="#BFE1FF" mode="Opaque">
+						<box>
+							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textField>
+							<reportElement uuid="20bc7bea-7531-490e-8907-4d38f5bf5346" style="Crosstab Data Text" x="0" y="0" width="61" height="25"/>
+							<textElement/>
+							<textFieldExpression><![CDATA[100-$V{EVAL_anomalias_Peso_globalMeasure_EVAL_incidencias_fecha_ALL}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="61" height="0" rowTotalGroup="empleado_asignado" columnTotalGroup="EVAL_incidencias_fecha">
+					<cellContents backcolor="#005FB3" mode="Opaque">
+						<box>
+							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="51" height="25" rowTotalGroup="empleado_nombre">
+					<cellContents backcolor="#BFE1FF" mode="Opaque">
+						<box>
+							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textField>
+							<reportElement uuid="7f0c2179-841e-491c-a4c9-74cf7ee6bc2a" style="Crosstab Data Text" x="0" y="0" width="50" height="25"/>
+							<textElement/>
+							<textFieldExpression><![CDATA[$V{EVAL_anomalias_Peso_globalMeasure}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="61" rowTotalGroup="empleado_nombre" columnTotalGroup="EVAL_incidencias_fecha">
+					<cellContents backcolor="#BFE1FF" mode="Opaque">
+						<box>
+							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textField>
+							<reportElement uuid="928a8b91-309c-4d79-92e1-3dbe3c966ea5" style="Crosstab Data Text" x="0" y="0" width="61" height="25"/>
+							<textElement/>
+							<textFieldExpression><![CDATA[$V{EVAL_anomalias_Peso_globalMeasure}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+			</crosstab>
+			<break>
+				<reportElement uuid="934eceb9-c8fb-4eda-85bf-f4325ea1df92" x="0" y="228" width="100" height="1"/>
+			</break>
+			<textField>
+				<reportElement uuid="665779a4-2ee8-461f-8a49-6e993e739df9" x="0" y="229" width="752" height="53"/>
+				<textElement textAlignment="Center">
+					<font size="18"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Gráfico Evaluacion de Peso Economico"+"\r\n"+
+"Cantidad de Conductores Evaluados:" +($V{CONTA_CHOFERES}+1)]]></textFieldExpression>
+			</textField>
+			<barChart>
+				<chart>
+					<reportElement uuid="f5418426-92b0-4378-92f9-f7fa8333003d" stretchType="RelativeToBandHeight" x="0" y="282" width="752" height="42"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend position="Bottom"/>
+				</chart>
+				<categoryDataset>
+					<categorySeries>
+						<seriesExpression><![CDATA[$F{empleado_nombre}]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{EVAL_incidencias_cod_chofer}]]></categoryExpression>
+						<valueExpression><![CDATA[$V{CalPesEco}]]></valueExpression>
+					</categorySeries>
+				</categoryDataset>
+				<barPlot>
+					<plot/>
+					<itemLabel/>
+				</barPlot>
+			</barChart>
+			<break>
+				<reportElement uuid="9b3c82e9-5ce7-40a7-b163-8bd0b30a7dd7" x="0" y="324" width="100" height="1"/>
+			</break>
+			<textField>
+				<reportElement uuid="665779a4-2ee8-461f-8a49-6e993e739df9" x="0" y="438" width="752" height="53"/>
+				<textElement textAlignment="Center">
+					<font size="18"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Gráfico Evaluacion de Peso Global"+"\r\n"+
+"Cantidad de Conductores Evaluados:" +($V{CONTA_CHOFERES}+1)]]></textFieldExpression>
+			</textField>
+			<break>
+				<reportElement uuid="9d445f4d-b78b-4bda-a9b8-54a05aff57fe" x="0" y="533" width="100" height="1"/>
+			</break>
+			<barChart>
+				<chart>
+					<reportElement uuid="f5418426-92b0-4378-92f9-f7fa8333003d" stretchType="RelativeToBandHeight" x="0" y="491" width="752" height="42"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend position="Bottom"/>
+				</chart>
+				<categoryDataset>
+					<categorySeries>
+						<seriesExpression><![CDATA[$F{empleado_nombre}]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{EVAL_incidencias_cod_chofer}]]></categoryExpression>
+						<valueExpression><![CDATA[100-$V{SUM_PESO}]]></valueExpression>
+					</categorySeries>
+				</categoryDataset>
+				<barPlot>
+					<plot/>
+					<itemLabel/>
+				</barPlot>
+			</barChart>
+			<textField>
+				<reportElement uuid="665779a4-2ee8-461f-8a49-6e993e739df9" x="0" y="325" width="752" height="53"/>
+				<textElement textAlignment="Center">
+					<font size="18"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Gráfico Evaluacion de Peso Imagen"+"\r\n"+
+"Cantidad de Conductores Evaluados:" +($V{CONTA_CHOFERES}+1)]]></textFieldExpression>
+			</textField>
+			<barChart>
+				<chart>
+					<reportElement uuid="f5418426-92b0-4378-92f9-f7fa8333003d" stretchType="RelativeToBandHeight" x="0" y="378" width="752" height="59"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend position="Bottom"/>
+				</chart>
+				<categoryDataset>
+					<categorySeries>
+						<seriesExpression><![CDATA[$F{empleado_nombre}]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{EVAL_incidencias_cod_chofer}]]></categoryExpression>
+						<valueExpression><![CDATA[100-$F{EVAL_anomalias_Peso_imagen}]]></valueExpression>
+					</categorySeries>
+				</categoryDataset>
+				<barPlot>
+					<plot/>
+					<itemLabel/>
+				</barPlot>
+			</barChart>
+			<break>
+				<reportElement uuid="5219adfe-ed22-4376-b019-f0adbb36ef01" x="0" y="437" width="100" height="1"/>
+			</break>
+		</band>
+	</summary>
+</jasperReport>

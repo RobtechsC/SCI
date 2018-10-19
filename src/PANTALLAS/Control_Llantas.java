@@ -1,0 +1,1614 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+package PANTALLAS;
+
+import CLASES.ControlMovimientoLlantas;
+import CLASES.DataUser;
+import CLASES.ModuloMySQL;
+import CLASES.ValoresEstaticos;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.awt.event.KeyEvent;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+
+/**
+ *
+ * @author Esteban
+ */
+public final class Control_Llantas extends javax.swing.JFrame {
+
+    /**
+     * Creates new form Nuevo_Ingreso
+     */
+    public Control_Llantas() {
+        initComponents();
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();   
+        int w = this.getSize().width;
+        int h = this.getSize().height;
+        int x = (dim.width-w)/2;
+        int y = (dim.height-h)/2;
+        this.setLocation(x, y);
+        getBuses();
+        Image i=new ImageIcon("C://SCI//SCI.png").getImage();
+        this.setIconImage(i);
+        jLabelVersion.setText("Sistema Control de Indicadores Version: "+ValoresEstaticos.version_sci+"  Usuario Actual: "+DataUser.username);
+        //getListConductores();
+        
+    }
+    public Control_Llantas(int consecutivo) {
+        try {
+            initComponents();
+            getBuses();
+            consecutivoOld=consecutivo;
+            Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+            ResultSet rs=modulo.Listar("Select Fecha, Unidad, Kilometraje, Cod_Llanta_Sale, Profundidad_Llanta_Sale, Posicion_Llanta_Sale, Destino_Llanta_Sale, Cod_Llanta_Entra, Profundidad_Llanta_Entra, Presion_Aire_Llanta_Entra from Mantenimiento_MovimientoLlantas where Consecutivo='"+consecutivo+"' and IdEmpresa='"+ValoresEstaticos.getIdEmpresa()+"'");
+            SimpleDateFormat sf=new SimpleDateFormat("dd-MM-yyyy");
+            rs.first();
+            Date date=rs.getDate("Fecha");
+            String codLlantaSale=rs.getString("Cod_Llanta_Sale");
+            String codLlantaEntra=rs.getString("Cod_Llanta_Entra");
+            int i=codLlantaEntra.indexOf("#")+1;
+            int i2=codLlantaSale.indexOf("#")+1;
+            char[] llantasal=new char[codLlantaSale.length()-i2];
+            char[] llantaentr=new char[codLlantaEntra.length()-i];
+            codLlantaSale.getChars(i2, codLlantaSale.length(), llantasal, 0);
+            codLlantaEntra.getChars(i, codLlantaEntra.length(), llantaentr, 0);
+            isActualizacion=true;
+            jTxtFecha.setText(sf.format(date));
+            jComboBoxBuses.setSelectedItem(rs.getString("Unidad"));
+            unidad=Integer.parseInt(rs.getString("Unidad"));
+            jTxtKilometraje.setText(rs.getString("Kilometraje"));
+            jComboBoxPosicionSale.setSelectedItem(rs.getObject("Posicion_Llanta_Sale"));
+            jComboBoxDestino.setSelectedItem(rs.getObject("Destino_Llanta_Sale"));
+            jTxtCodigoLlantaSale.setText(String.valueOf(llantasal));
+            codLlantaSaleOld=rs.getString("Cod_Llanta_Sale");
+            jTxtCodLlantaEntra.setText(String.valueOf(llantaentr));
+            codLlantaEntraOld=rs.getString("Cod_Llanta_Entra");
+            jTxtProfundidadSale.setText(rs.getString("Profundidad_Llanta_Sale"));
+            jTxtProfundidadEntra.setText(rs.getString("Profundidad_Llanta_Entra"));
+            jTextPresionAireEntra.setText(rs.getString("Presion_Aire_Llanta_Entra"));
+            int w = this.getSize().width;
+            int h = this.getSize().height;
+            int x = (dim.width-w)/2;
+            int y = (dim.height-h)/2;
+            this.setLocation(x, y);
+            jLabelTitulo.setText(jLabelTitulo.getText()+" "+ValoresEstaticos.getNombreEmpresa().toUpperCase());
+            jLabelVersion.setText("Sistema Control de Indicadores Version: "+ValoresEstaticos.version_sci+"  Usuario Actual: "+DataUser.username);
+            getListDestinos();
+            Image image=new ImageIcon("C://SCI//SCI.png").getImage();
+            this.setIconImage(image);
+            //ValoresEstaticos.espere.setVisible(false);
+            //getListConductores();
+        } catch (SQLException ex) {
+            Logger.getLogger(Control_Llantas.class.getName()).log(Level.SEVERE, null, ex);
+            //ValoresEstaticos.espere.setVisible(false);
+        }
+    }
+    
+
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        jPanel3 = new javax.swing.JPanel();
+        jLabel39 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jTxtCodLlantaEntra = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        jTxtProfundidadEntra = new javax.swing.JTextField();
+        jTxtKilometraje = new javax.swing.JTextField();
+        jTextPresionAireEntra = new javax.swing.JTextField();
+        jTxtProfundidadSale = new javax.swing.JTextField();
+        jButtonGuardar = new javax.swing.JButton();
+        jTxtCodigoLlantaSale = new javax.swing.JTextField();
+        jLabel38 = new javax.swing.JLabel();
+        jTxtFecha = new javax.swing.JTextField();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel40 = new javax.swing.JLabel();
+        jLabel41 = new javax.swing.JLabel();
+        jComboBoxPosicionSale = new javax.swing.JComboBox();
+        jLabel42 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jComboBoxDestino = new javax.swing.JComboBox();
+        jLabel7 = new javax.swing.JLabel();
+        jButtonListado = new javax.swing.JButton();
+        jComboBoxBuses = new javax.swing.JComboBox();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel13 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
+        jButton7 = new javax.swing.JButton();
+        jButton8 = new javax.swing.JButton();
+        jButton9 = new javax.swing.JButton();
+        jPanel4 = new javax.swing.JPanel();
+        jButtonControlMovimientos = new javax.swing.JButton();
+        jButtonIngrLlantasNuevas = new javax.swing.JButton();
+        jButtonControlSemanal = new javax.swing.JButton();
+        jLabel12 = new javax.swing.JLabel();
+        jButtonControlMovimientos1 = new javax.swing.JButton();
+        jButtonControlPresiones = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        jLabelTitulo = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jButtonReporteria = new javax.swing.JButton();
+        jPanel5 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabelVersion = new javax.swing.JLabel();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Sistema de Control de Indicadores.");
+        setResizable(false);
+
+        jPanel3.setBackground(new java.awt.Color(51, 51, 51));
+        jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(0, 153, 204), new java.awt.Color(0, 102, 153)));
+
+        jLabel39.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel39.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel39.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel39.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel39.setText("CONTROL DE MOVIMIENTOS");
+        jLabel39.setOpaque(true);
+
+        jLabel5.setBackground(new java.awt.Color(188, 74, 0));
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel5.setText("Posicion");
+        jLabel5.setOpaque(true);
+
+        jLabel3.setBackground(new java.awt.Color(188, 74, 0));
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setText("Kilometraje");
+        jLabel3.setOpaque(true);
+
+        jLabel6.setBackground(new java.awt.Color(188, 74, 0));
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel6.setText("Presion de Aire");
+        jLabel6.setOpaque(true);
+
+        jLabel2.setBackground(new java.awt.Color(188, 74, 0));
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("Unidad");
+        jLabel2.setOpaque(true);
+
+        jTxtCodLlantaEntra.setBackground(new java.awt.Color(102, 102, 102));
+        jTxtCodLlantaEntra.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jTxtCodLlantaEntra.setForeground(new java.awt.Color(255, 255, 255));
+        jTxtCodLlantaEntra.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jTxtCodLlantaEntra.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
+        jTxtCodLlantaEntra.setSelectionColor(new java.awt.Color(0, 51, 102));
+        jTxtCodLlantaEntra.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTxtCodLlantaEntraKeyPressed(evt);
+            }
+        });
+
+        jLabel8.setBackground(new java.awt.Color(188, 74, 0));
+        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel8.setText("Profundidad");
+        jLabel8.setOpaque(true);
+
+        jTxtProfundidadEntra.setBackground(new java.awt.Color(102, 102, 102));
+        jTxtProfundidadEntra.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jTxtProfundidadEntra.setForeground(new java.awt.Color(255, 255, 255));
+        jTxtProfundidadEntra.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jTxtProfundidadEntra.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
+        jTxtProfundidadEntra.setSelectionColor(new java.awt.Color(0, 51, 102));
+        jTxtProfundidadEntra.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTxtProfundidadEntraKeyPressed(evt);
+            }
+        });
+
+        jTxtKilometraje.setBackground(new java.awt.Color(102, 102, 102));
+        jTxtKilometraje.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jTxtKilometraje.setForeground(new java.awt.Color(255, 255, 255));
+        jTxtKilometraje.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jTxtKilometraje.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
+        jTxtKilometraje.setSelectionColor(new java.awt.Color(0, 51, 102));
+        jTxtKilometraje.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTxtKilometrajeKeyPressed(evt);
+            }
+        });
+
+        jTextPresionAireEntra.setBackground(new java.awt.Color(102, 102, 102));
+        jTextPresionAireEntra.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jTextPresionAireEntra.setForeground(new java.awt.Color(255, 255, 255));
+        jTextPresionAireEntra.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jTextPresionAireEntra.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
+        jTextPresionAireEntra.setSelectionColor(new java.awt.Color(0, 51, 102));
+        jTextPresionAireEntra.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextPresionAireEntraKeyPressed(evt);
+            }
+        });
+
+        jTxtProfundidadSale.setBackground(new java.awt.Color(102, 102, 102));
+        jTxtProfundidadSale.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jTxtProfundidadSale.setForeground(new java.awt.Color(255, 255, 255));
+        jTxtProfundidadSale.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jTxtProfundidadSale.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
+        jTxtProfundidadSale.setSelectionColor(new java.awt.Color(0, 51, 102));
+        jTxtProfundidadSale.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTxtProfundidadSaleKeyPressed(evt);
+            }
+        });
+
+        jButtonGuardar.setBackground(new java.awt.Color(51, 51, 51));
+        jButtonGuardar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jButtonGuardar.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMGS/save_1.png"))); // NOI18N
+        jButtonGuardar.setText("GUARDAR");
+        jButtonGuardar.setBorder(null);
+        jButtonGuardar.setFocusable(false);
+        jButtonGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonGuardarActionPerformed(evt);
+            }
+        });
+
+        jTxtCodigoLlantaSale.setBackground(new java.awt.Color(102, 102, 102));
+        jTxtCodigoLlantaSale.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jTxtCodigoLlantaSale.setForeground(new java.awt.Color(255, 255, 255));
+        jTxtCodigoLlantaSale.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jTxtCodigoLlantaSale.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
+        jTxtCodigoLlantaSale.setSelectionColor(new java.awt.Color(0, 51, 102));
+        jTxtCodigoLlantaSale.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTxtCodigoLlantaSaleKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTxtCodigoLlantaSaleKeyReleased(evt);
+            }
+        });
+
+        jLabel38.setBackground(new java.awt.Color(188, 74, 0));
+        jLabel38.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel38.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel38.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel38.setText("Cod. Llanta");
+        jLabel38.setOpaque(true);
+
+        jTxtFecha.setBackground(new java.awt.Color(102, 102, 102));
+        jTxtFecha.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jTxtFecha.setForeground(new java.awt.Color(255, 255, 255));
+        jTxtFecha.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jTxtFecha.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
+        jTxtFecha.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTxtFechaMouseClicked(evt);
+            }
+        });
+
+        jLabel15.setBackground(new java.awt.Color(188, 74, 0));
+        jLabel15.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel15.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel15.setText("FECHA");
+        jLabel15.setOpaque(true);
+
+        jLabel40.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel40.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel40.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel40.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel40.setText("INFORMACION LLANTAS SALEN");
+        jLabel40.setOpaque(true);
+
+        jLabel41.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel41.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel41.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel41.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel41.setText("INFORMACION LLANTAS ENTRAN");
+        jLabel41.setOpaque(true);
+
+        jComboBoxPosicionSale.setBackground(new java.awt.Color(102, 102, 102));
+        jComboBoxPosicionSale.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jComboBoxPosicionSale.setForeground(new java.awt.Color(255, 255, 255));
+        jComboBoxPosicionSale.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "DI", "DD", "TIE", "TII", "TDE", "TDI", "TAI", "TAD" }));
+
+        jLabel42.setBackground(new java.awt.Color(188, 74, 0));
+        jLabel42.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel42.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel42.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel42.setText("Cod. Llanta");
+        jLabel42.setOpaque(true);
+
+        jLabel14.setBackground(new java.awt.Color(188, 74, 0));
+        jLabel14.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel14.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel14.setText("Profundidad");
+        jLabel14.setOpaque(true);
+
+        jComboBoxDestino.setBackground(new java.awt.Color(102, 102, 102));
+        jComboBoxDestino.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jComboBoxDestino.setForeground(new java.awt.Color(255, 255, 255));
+
+        jLabel7.setBackground(new java.awt.Color(188, 74, 0));
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel7.setText("Destino");
+        jLabel7.setOpaque(true);
+
+        jButtonListado.setBackground(new java.awt.Color(51, 51, 51));
+        jButtonListado.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jButtonListado.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonListado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMGS/list.png"))); // NOI18N
+        jButtonListado.setText("VER LISTADO");
+        jButtonListado.setBorder(null);
+        jButtonListado.setFocusable(false);
+        jButtonListado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonListadoActionPerformed(evt);
+            }
+        });
+
+        jComboBoxBuses.setBackground(new java.awt.Color(102, 102, 102));
+        jComboBoxBuses.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jComboBoxBuses.setForeground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel39, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jLabel15, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE)
+                            .addComponent(jTxtFecha, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
+                            .addComponent(jComboBoxBuses, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jTxtKilometraje)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE))
+                        .addGap(34, 34, 34)
+                        .addComponent(jButtonListado, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jTxtCodigoLlantaSale, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel38, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                        .addComponent(jTxtProfundidadSale, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jComboBoxPosicionSale, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jComboBoxDestino, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)))
+                            .addComponent(jLabel40, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(53, 53, 53)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jTxtCodLlantaEntra, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel42, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                        .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                        .addComponent(jTxtProfundidadEntra, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jTextPresionAireEntra, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jLabel41, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
+                        .addComponent(jButtonGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(48, 48, 48))))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addComponent(jLabel39, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel15)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTxtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTxtKilometraje, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonListado, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBoxBuses, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel40)
+                    .addComponent(jLabel41))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel38)
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel42)
+                            .addComponent(jLabel14)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel7))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jTxtCodigoLlantaSale, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTxtProfundidadSale, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jComboBoxPosicionSale, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTxtCodLlantaEntra, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTxtProfundidadEntra, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextPresionAireEntra, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jComboBoxDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(22, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButtonGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(20, 20, 20))))
+        );
+
+        jPanel2.setBackground(new java.awt.Color(0, 0, 0));
+
+        jLabel13.setBackground(new java.awt.Color(0, 51, 102));
+        jLabel13.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel13.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel13.setText("SELECCIONE UN TIPO DE CONTROL");
+        jLabel13.setOpaque(true);
+
+        jButton2.setBackground(new java.awt.Color(51, 51, 51));
+        jButton2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jButton2.setForeground(new java.awt.Color(255, 153, 51));
+        jButton2.setText("Ingresos Diarios");
+        jButton2.setFocusable(false);
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        jButton4.setBackground(new java.awt.Color(0, 204, 0));
+        jButton4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jButton4.setForeground(new java.awt.Color(0, 51, 102));
+        jButton4.setText("Control de Llantas");
+        jButton4.setFocusable(false);
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
+        jButton5.setBackground(new java.awt.Color(51, 51, 51));
+        jButton5.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jButton5.setForeground(new java.awt.Color(255, 153, 51));
+        jButton5.setText("Control de Aceites");
+        jButton5.setFocusable(false);
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+
+        jButton6.setBackground(new java.awt.Color(51, 51, 51));
+        jButton6.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jButton6.setForeground(new java.awt.Color(255, 153, 51));
+        jButton6.setText("SALIR");
+        jButton6.setFocusable(false);
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+
+        jButton7.setBackground(new java.awt.Color(51, 51, 51));
+        jButton7.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jButton7.setForeground(new java.awt.Color(255, 153, 51));
+        jButton7.setText("Parametros de Empresa");
+        jButton7.setFocusable(false);
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
+
+        jButton8.setBackground(new java.awt.Color(51, 51, 51));
+        jButton8.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jButton8.setForeground(new java.awt.Color(255, 153, 51));
+        jButton8.setText("Control de Baterias");
+        jButton8.setFocusable(false);
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
+
+        jButton9.setBackground(new java.awt.Color(51, 51, 51));
+        jButton9.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jButton9.setForeground(new java.awt.Color(255, 153, 51));
+        jButton9.setText("Ordenes de Trabajo");
+        jButton9.setFocusable(false);
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton9ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jButton2)
+                .addGap(18, 18, 18)
+                .addComponent(jButton4)
+                .addGap(18, 18, 18)
+                .addComponent(jButton5)
+                .addGap(18, 18, 18)
+                .addComponent(jButton8)
+                .addGap(18, 18, 18)
+                .addComponent(jButton9)
+                .addGap(18, 18, 18)
+                .addComponent(jButton7)
+                .addGap(18, 18, 18)
+                .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel4.setBackground(new java.awt.Color(51, 51, 51));
+
+        jButtonControlMovimientos.setBackground(new java.awt.Color(255, 255, 255));
+        jButtonControlMovimientos.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jButtonControlMovimientos.setText("Control de Movimientos");
+        jButtonControlMovimientos.setFocusable(false);
+        jButtonControlMovimientos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonControlMovimientosActionPerformed(evt);
+            }
+        });
+
+        jButtonIngrLlantasNuevas.setBackground(new java.awt.Color(0, 0, 0));
+        jButtonIngrLlantasNuevas.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jButtonIngrLlantasNuevas.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonIngrLlantasNuevas.setText("Ingreso de Llantas Nuevas");
+        jButtonIngrLlantasNuevas.setFocusable(false);
+        jButtonIngrLlantasNuevas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonIngrLlantasNuevasActionPerformed(evt);
+            }
+        });
+
+        jButtonControlSemanal.setBackground(new java.awt.Color(0, 0, 0));
+        jButtonControlSemanal.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jButtonControlSemanal.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonControlSemanal.setText("Control Semanal Profundidades");
+        jButtonControlSemanal.setFocusable(false);
+        jButtonControlSemanal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonControlSemanalActionPerformed(evt);
+            }
+        });
+
+        jLabel12.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel12.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel12.setText("SELECCIONE UNA FUNCION");
+        jLabel12.setOpaque(true);
+
+        jButtonControlMovimientos1.setBackground(new java.awt.Color(0, 0, 0));
+        jButtonControlMovimientos1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jButtonControlMovimientos1.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonControlMovimientos1.setText("Control de Reencauches");
+        jButtonControlMovimientos1.setFocusable(false);
+        jButtonControlMovimientos1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonControlMovimientos1ActionPerformed(evt);
+            }
+        });
+
+        jButtonControlPresiones.setBackground(new java.awt.Color(0, 0, 0));
+        jButtonControlPresiones.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jButtonControlPresiones.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonControlPresiones.setText("Control Semanal Presiones");
+        jButtonControlPresiones.setFocusable(false);
+        jButtonControlPresiones.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonControlPresionesActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(jButtonControlMovimientos, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButtonIngrLlantasNuevas, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButtonControlSemanal, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButtonControlPresiones, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButtonControlMovimientos1, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel12)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                        .addGap(0, 41, Short.MAX_VALUE)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButtonControlMovimientos, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButtonIngrLlantasNuevas, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButtonControlSemanal, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButtonControlMovimientos1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButtonControlPresiones, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap())
+        );
+
+        jPanel1.setBackground(new java.awt.Color(51, 51, 51));
+
+        jLabelTitulo.setBackground(new java.awt.Color(51, 51, 51));
+        jLabelTitulo.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabelTitulo.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelTitulo.setText("INGRESO DE DATOS AL SISTEMA SCI");
+        jLabelTitulo.setOpaque(true);
+
+        jLabel9.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMGS/SCI.png"))); // NOI18N
+        jLabel9.setOpaque(true);
+
+        jButtonReporteria.setBackground(new java.awt.Color(51, 51, 51));
+        jButtonReporteria.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jButtonReporteria.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonReporteria.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMGS/reportes.png"))); // NOI18N
+        jButtonReporteria.setText("Reporteria");
+        jButtonReporteria.setBorder(null);
+        jButtonReporteria.setFocusable(false);
+        jButtonReporteria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonReporteriaActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addComponent(jLabel9)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                .addComponent(jLabelTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 901, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButtonReporteria, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButtonReporteria, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabelTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+
+        jPanel5.setBackground(new java.awt.Color(0, 102, 153));
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Control de Llantas");
+
+        jLabelVersion.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabelVersion.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelVersion.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelVersion.setText("Version.");
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel5Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jLabelVersion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addContainerGap()))
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 33, Short.MAX_VALUE))
+            .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel5Layout.createSequentialGroup()
+                    .addGap(42, 42, 42)
+                    .addComponent(jLabelVersion)
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+        );
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
+        try {
+            //JOptionPane.showMessageDialog(rootPane, unidad);
+            if(unidad==0){
+                
+                //JOptionPane.showC
+                int i=JOptionPane.showConfirmDialog(rootPane, "Desea guardar el registro con el número de bus digitado previamente: "+datos.getUnidadPrevia(), "Sistema Control de Indicadores", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                if (i==JOptionPane.YES_OPTION){
+                    unidad=datos.getUnidadPrevia();
+                }
+                else{
+                    return;
+                }
+            }
+            if (isActualizacion){
+                modulo.Ejecutar("update Mantenimiento_IngresoLlantasNuevas  set Status='3' Where (Cod_Llanta='"+codLlantaEntraOld+"' or Cod_Llanta='"+codLlantaSaleOld+"') and IdEmpresa='"+ValoresEstaticos.getIdEmpresa()+"'");
+                modulo.Ejecutar("delete from Mantenimiento_MovimientoLlantas where Consecutivo='"+consecutivoOld+"' and IdEmpresa='"+ValoresEstaticos.getIdEmpresa()+"'");
+            }
+            datos.setUnidad(unidad);
+            //clearData();
+            SimpleDateFormat sf=new SimpleDateFormat("dd-MM-yyyy");
+            Date fecha=sf.parse(jTxtFecha.getText());
+            Calendar c=Calendar.getInstance();
+            if (fecha.getTime()==c.getTimeInMillis()||fecha.before(new Date(c.getTimeInMillis())))
+            {
+                fechallantaentra=new java.sql.Date(fecha.getTime());
+                datos.setFecha(fechallantaentra);
+            } 
+            
+            else {
+                JOptionPane.showMessageDialog(rootPane, "Fecha digitada mayor a la fecha actual, no se puede guardar el registro. Revise la fecha digitada y la fecha de la computadora");
+                return;
+            }
+            if (jTxtCodLlantaEntra.getText().length()>0){
+                if (isLlantaEntranteDisponible(id+jTxtCodLlantaEntra.getText())==false){
+                    JOptionPane.showMessageDialog(rootPane, "Codigo Llanta Entrante no valido. Llanta no disponible");
+                    return;
+                }
+                
+            }
+            if (jTxtCodigoLlantaSale.getText().length()==0){
+                if (testFirstMovimientoBus()==false){
+                    JOptionPane.showMessageDialog(rootPane, "No se digito codigo de llanta saliente y la unidad ya presenta movimientos en esa posicion");
+                    return;
+                }
+                else{
+                    isFirstRegister=true;
+                }
+            }
+            int a;
+            if (isFirstRegister==false){
+                a=getDataCodLlanta(id+jTxtCodigoLlantaSale.getText(), jComboBoxPosicionSale.getSelectedItem().toString());
+            }
+            else{
+                a=0;
+            }
+            
+            if (a==1){
+                if (jTxtKilometraje.getText().length()>0){
+                datos.setKilometraje(Float.parseFloat(jTxtKilometraje.getText()));
+                }
+                else{
+                kmllantasale=getKmFromUni(unidadllantaentra, fechallantasale);
+                if (unidadllantaentra==unidad||statusllanteentrante==3){
+                datos.setKilometraje(kmllantasale);}
+                else{
+                   JOptionPane.showMessageDialog(rootPane, "Unidad digitada no concuerda con la ultima unidad donde se instalo la llanta. Por favor verificar la informacion");
+                   return;
+                }
+                }
+            }
+            else{
+               if (a==0){
+                   fechallantasale=new java.sql.Date(c.getTimeInMillis());
+                   unidadllantaentra=unidad;
+                   kmllantasale=0;
+                   datos.setKilometraje(kmllantasale);
+               }
+               if (a==2){
+                   return;
+               }
+               else{
+                   if (a==-1){
+                       JOptionPane.showMessageDialog(rootPane, "No se pudo determinar el kilometraje de la llanta digitada, por favor verifique que tiene internet.");
+                       return;
+                   }
+               }
+            }
+            if (isLlantaEntranteDisponible(id+jTxtCodLlantaEntra.getText())){
+                datos.setCodLlantaEntra(id+jTxtCodLlantaEntra.getText());
+            }
+            else{
+                if (statusllanteentrante==0){
+                    int i=JOptionPane.showConfirmDialog(null, "No se encontro Codigo de Llanta Entrante. Desea guardarla?");
+                if (i==JOptionPane.OK_OPTION)
+                {
+                    java.awt.EventQueue.invokeLater(new Runnable() {
+                    @Override
+                    public void run() 
+                    {
+                         new Ingreso_Llantas_Nuevas(jTxtCodLlantaEntra.getText()).setVisible(true);
+                    }
+                    });
+       
+                }
+                }
+                JOptionPane.showMessageDialog(rootPane, "Error. No se puede instalar llanta que no este disponible. El ultimo estado de la llanta fue: "+statusllanteentrante);
+                return;
+            }
+            if (jTxtCodigoLlantaSale.getText().length()>0){
+            datos.setCodLlantaSale(id+jTxtCodigoLlantaSale.getText());
+            datos.setSestinoLlantaSale(idDestino);
+            }
+            else{
+                datos.setCodLlantaSale(null);
+                if (idDestino!=6){
+                int i=JOptionPane.showConfirmDialog(rootPane, "Se guardará destino como Instalada en Unidad ya que no existe codigo de llanta saliente. Esta de acuerdo, sino no se guardara el registro", "ATENCION!!!!", JOptionPane.WARNING_MESSAGE);
+                if (i==JOptionPane.OK_OPTION){
+                    datos.setSestinoLlantaSale(6);
+                }
+                else{
+                    return;
+                }
+            }
+                
+            }
+           // datos.setKilometraje(Float.parseFloat(jTxtKilometraje.getText()));
+            datos.setPosicionLlantaSale(jComboBoxPosicionSale.getSelectedItem().toString());
+            datos.setPresionAire(Float.parseFloat(jTextPresionAireEntra.getText()));
+            datos.setProfundidadLlantaEntra(Float.parseFloat(jTxtProfundidadEntra.getText()));
+            if (jTxtProfundidadSale.getText().length()==0 & jTxtCodigoLlantaSale.getText().length()==0){
+                datos.setProfundidadLlantaSale(0);
+            }
+            else{
+                if (jTxtCodigoLlantaSale.getText().length()>0&jTxtProfundidadSale.getText().length()==0){
+                    JOptionPane.showMessageDialog(rootPane, "No se digito profundidad de la llanta saliente");
+                    return;
+                }
+                else{
+                    datos.setProfundidadLlantaSale(Float.parseFloat(jTxtProfundidadSale.getText()));
+                }
+                
+            }
+            
+           
+            datos.setUnidad(unidad);
+            if (datos.saveDataMySql()){
+                String setllaantasalientependiente = null;
+                if (jComboBoxDestino.getSelectedItem().toString().contains("Desechar")&jTxtCodigoLlantaSale.getText().length()>0){
+                    setllaantasalientependiente="update Mantenimiento_IngresoLlantasNuevas set Status=4 where Cod_Llanta='"+id+jTxtCodigoLlantaSale.getText()+"' and IdEmpresa='"+ValoresEstaticos.getIdEmpresa()+"'";
+                }
+                else{
+                    if (jComboBoxDestino.getSelectedItem().toString().contains("Inventario")&jTxtCodigoLlantaSale.getText().length()>0){
+                        if (tipoinventariollanta==1){
+                            setllaantasalientependiente="update Mantenimiento_IngresoLlantasNuevas set Status=3, EstadoLlanta=3 where Cod_Llanta='"+id+jTxtCodigoLlantaSale.getText()+"' and IdEmpresa='"+ValoresEstaticos.getIdEmpresa()+"'";
+                        }
+                        else{
+                            if (jTxtCodigoLlantaSale.getText().length()>0){
+                            setllaantasalientependiente="update Mantenimiento_IngresoLlantasNuevas set Status=3, EstadoLlanta=4 where Cod_Llanta='"+id+jTxtCodigoLlantaSale.getText()+"' and IdEmpresa='"+ValoresEstaticos.getIdEmpresa()+"'";}
+                        }
+                        
+                    }
+                    else{
+                    
+                    setllaantasalientependiente="update Mantenimiento_IngresoLlantasNuevas set Status=2 where Cod_Llanta='"+id+jTxtCodigoLlantaSale.getText()+"' and IdEmpresa='"+ValoresEstaticos.getIdEmpresa()+"'";
+                    }
+                }
+                String setllantaentranteinstalada="update Mantenimiento_IngresoLlantasNuevas set Status=1 where Cod_Llanta='"+id+jTxtCodLlantaEntra.getText()+"' and IdEmpresa='"+ValoresEstaticos.getIdEmpresa()+"'";
+               
+                modulo.Ejecutar(setllantaentranteinstalada);
+                if (jTxtCodigoLlantaSale.getText().length()>0){
+                modulo.Ejecutar(setllaantasalientependiente);}
+                clearData();
+            }
+            
+        } catch (ParseException ex) {
+            Logger.getLogger(Control_Llantas.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_jButtonGuardarActionPerformed
+    public void getBuses(){
+        new Thread(){
+            @Override
+            public void run(){
+                final ResultSet rs=modulo.Listar("Select Unidad from UnidadesxEmpresa where IdEmpresa='"+ValoresEstaticos.getIdEmpresa()+"' and Estado='1' ORDER BY Unidad");
+       //  Logger.getLogger(Control_Aceites.class.getName()).log(Level.SEVERE, s);
+        if (rs!=null){
+            try {
+                while(rs.next()){
+                 jComboBoxBuses.addItem(rs.getString("Unidad"));
+                  
+                }
+                jComboBoxBuses.addItemListener(new ItemListener() {
+
+                    @Override
+                    public void itemStateChanged(ItemEvent e) {
+                        try {
+                            int index=jComboBoxBuses.getSelectedIndex()+1;
+                            rs.absolute(index);
+                            unidad=rs.getInt("Unidad");
+                            //JOptionPane.showMessageDialog(rootPane, idPlantel);
+                        } catch (SQLException ex) {
+                            Logger.getLogger(Control_Llantas.class.getName()).log(Level.SEVERE, null, ex);
+                            JOptionPane.showMessageDialog(rootPane, "ERROR!!!! No se pudo comunicar con el servidor. Por favor verifique que tiene conexion a internet e intente nuevamente "+ex.getMessage());
+                        }
+                       
+                    }
+                });
+                rs.first();
+                unidad=rs.getInt("Unidad");
+                jLabelTitulo.setText(jLabelTitulo.getText()+" "+ValoresEstaticos.getNombreEmpresa().toUpperCase());
+                
+        if (DataUser.permiso_control_llantas){
+        getListDestinos();}
+        else{
+            jTextPresionAireEntra.setEnabled(false);
+            jTxtCodLlantaEntra.setEnabled(false);
+            jTxtCodigoLlantaSale.setEnabled(false);
+            jTxtFecha.setEnabled(false);
+            jTxtKilometraje.setEnabled(false);
+            jTxtProfundidadEntra.setEnabled(false);
+            jTxtProfundidadSale.setEnabled(false);
+            jComboBoxBuses.setEnabled(false);
+            jButtonGuardar.setEnabled(false);
+            jButtonControlSemanal.setEnabled(false);
+            jButtonListado.setEnabled(false);
+            jButtonIngrLlantasNuevas.setEnabled(false);
+            jComboBoxDestino.setEnabled(false);
+            jComboBoxPosicionSale.setEnabled(false);
+            
+            
+        }
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(rootPane, "ERROR!!!! No se pudo comunicar con el servidor. Por favor verifique que tiene conexion a internet e intente nuevamente "+ex.getMessage());
+            }
+        }
+        else{
+            JOptionPane.showMessageDialog(rootPane, "ERROR!!!! No se pudo comunicar con el servidor. Por favor verifique que tiene conexion a internet e intente nuevamente");
+        }
+            }
+        }.start();
+        //String s="Select Unidad from UnidadesxEmpresa where IdEmpresa='"+ValoresEstaticos.getIdEmpresa()+"'";
+        ValoresEstaticos.muestreMensajeEsperar("Recuperando datos...");
+    }
+    
+    public void getListDestinos(){
+        
+        final ResultSet rs=modulo.Listar("Select * from DestinosLlantas");
+        if (rs!=null){
+            try {
+                while(rs.next()){
+                 jComboBoxDestino.addItem(rs.getString("Descripcion"));
+                  
+                }
+                jComboBoxDestino.addItemListener(new ItemListener() {
+
+                    @Override
+                    public void itemStateChanged(ItemEvent e) {
+                        try {
+                            idDestino=rs.getInt("IdDestino");
+                        } catch (SQLException ex) {
+                            Logger.getLogger(Control_Llantas.class.getName()).log(Level.SEVERE, null, ex);
+                            JOptionPane.showMessageDialog(rootPane, "ERROR!!!! No se pudo comunicar con el servidor. Por favor verifique que tiene conexion a internet e intente nuevamente "+ex.getMessage());
+                        }
+                       
+                    }
+                });
+                rs.first();
+                idDestino=rs.getInt("IdDestino");
+                
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(rootPane, "ERROR!!!! No se pudo comunicar con el servidor. Por favor verifique que tiene conexion a internet e intente nuevamente "+ex.getMessage());
+            }
+        }
+        else{
+            JOptionPane.showMessageDialog(rootPane, "ERROR!!!! No se pudo comunicar con el servidor. Por favor verifique que tiene conexion a internet e intente nuevamente");
+        }
+        ValoresEstaticos.ocultaMensaje();
+    }
+    public boolean testFirstMovimientoBus(){
+    String sentencia="Select Fecha from Mantenimiento_MovimientoLlantas Where Unidad='"+unidad+"' and IdEmpresa='"+ValoresEstaticos.getIdEmpresa()+"' and Posicion_Llanta_Sale='"+jComboBoxPosicionSale.getSelectedItem().toString()+"' order by Fecha Desc limit 1";
+    ResultSet rs=modulo.Listar(sentencia);
+    if (rs!=null){
+        try {
+            return !rs.first();
+        } catch (SQLException ex) {
+            Logger.getLogger(Control_Llantas.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
+    else{
+        return true;
+    }
+    }
+    public boolean isLlantaEntranteDisponible(String codllanta){
+        String sentencia="Select Status from Mantenimiento_IngresoLlantasNuevas Where Cod_Llanta='"+codllanta+"' and IdEmpresa='"+ValoresEstaticos.getIdEmpresa()+"'";
+        ResultSet rs=modulo.Listar(sentencia);
+        if (rs!=null){
+            try {
+                if (rs.first()){
+                    statusllanteentrante=rs.getInt("Status");
+                    return statusllanteentrante==3;
+                }
+                else{
+                    JOptionPane.showMessageDialog(rootPane, "Codigo de Llanta Invalido.");
+                    return false;
+                }
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(rootPane, "Error de comunicacion con servidor SQL. Verifique que tenga internet");
+                return false;
+            }
+        }
+        else{
+            JOptionPane.showMessageDialog(rootPane, "Codigo de llanta invalido.");
+            return false;
+        }
+    }
+    public boolean testLlantaSaliente(String codllanta, String position, int unidad){
+        String sentencia="Select Unidad, Cod_Llanta_Entra, Posicion_Llanta_Entra from Mantenimiento_MovimientoLlantas  Where Unidad='"+unidad+"' and Posicion_Llanta_Entra='"+position+"' and IdEmpresa='"+ValoresEstaticos.getIdEmpresa()+"' order by Fecha Desc Limit 1";
+        
+        ResultSet rs=modulo.Listar(sentencia);
+        if(rs!=null){
+            try {
+                if (rs.first()){
+                    
+                    return rs.getString("Cod_Llanta_Entra").toUpperCase().contains(codllanta.toUpperCase());
+                }
+                else{
+                    return true;
+                }
+            } catch (SQLException ex) {
+                //Logger.getLogger(Control_Llantas.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(rootPane, "Error de Comunicacion con el servidor SQL. Por favor verique la conexion a Internet");
+                return false;
+                
+            }
+        }
+        else{
+            return false;
+        }
+    }
+    public int getDataCodLlanta(String codllanta, String position){
+        if (testLlantaSaliente(codllanta, position, unidad)){
+        String sentencia="Select Fecha, Unidad, Posicion_Llanta_Entra from Mantenimiento_MovimientoLlantas Where Cod_Llanta_Entra='"+codllanta+"' and IdEmpresa='"+ValoresEstaticos.getIdEmpresa()+"' order by Fecha Desc limit 1";
+        ResultSet rs=modulo.Listar(sentencia);
+        if (rs!=null){
+            try {
+                if (rs.first()){
+                   if (position.equals(rs.getString("Posicion_Llanta_Entra"))){
+                   fechallantasale=rs.getDate("Fecha");
+                   if (fechallantasale.after(fechallantaentra)){
+                       JOptionPane.showMessageDialog(rootPane, "Fecha entrante es menor a la fecha del ultimo cambio de llanta "+fechallantasale+". El registro no se guardará. Si necesita guardar el registro por favor comunicarse con el administrador del sistema.");
+                       return 2;
+                   }
+                   unidadllantaentra=rs.getInt("Unidad");
+                   
+                   //JOptionPane.showMessageDialog(rootPane, unidadllantaentra);
+                   return 1;}
+                   else{
+                      JOptionPane.showMessageDialog(rootPane, "Posicion de la llanta no concuerda con el registro anterior. "+rs.getString("Posicion_Llanta_Entra"));
+                      return 2;
+                   }
+                }
+                else{
+                    return 0;
+                }
+            } catch (SQLException ex) {
+                return -1;
+            }
+        }
+        else{
+            return -1;
+        }
+        }
+        else{
+            JOptionPane.showMessageDialog(rootPane, "Codigo de Llanta no concuerda con el ultimo registrado en la unidad y posicion especificadas. El registro no se guardara");
+            
+            
+            return 2;
+        }
+        
+    }
+    public float getKmFromUni(int unidad, java.sql.Date date){
+        try {
+            String sentencia="Select SUM(Kilometros_Recorridos) from Ingreso_Datos Where Unidad="+unidad+" and fecha BETWEEN '"+date+"' and '"+fechallantaentra+"' AND CodigoEmpresa='"+ValoresEstaticos.getIdEmpresa()+"'";
+            ResultSet rs=modulo.Listar(sentencia);
+            rs.first();
+            return rs.getFloat(1);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(rootPane, ex);
+           return 0;
+        }
+        
+    }
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        if (DataUser.permiso_control_ingresos){
+        java.awt.EventQueue.invokeLater(new Runnable() {
+           @Override
+            public void run() {
+                new Nuevo_Ingreso().setVisible(true);
+            }
+       });
+       this.dispose();}
+        else{
+        JOptionPane.showMessageDialog(rootPane, "El usuario "+DataUser.username+" no tiene permisos para realizar esta función. Consulte al administrator del sistema", "Sistema de Control de Indicadores", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+        if (DataUser.permiso_control_aceites){
+         java.awt.EventQueue.invokeLater(new Runnable() {
+           @Override
+            public void run() {
+                new Control_Aceites().setVisible(true);
+            }
+       });
+       this.dispose();}
+        else{
+        JOptionPane.showMessageDialog(rootPane, "El usuario "+DataUser.username+" no tiene permisos para realizar esta función. Consulte al administrator del sistema", "Sistema de Control de Indicadores", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        // TODO add your handling code here:
+        System.exit(0);
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jTxtFechaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTxtFechaMouseClicked
+        // TODO add your handling code here:
+        this.jTxtFecha.setText(new DatePicker(this).setPickedDate());
+    }//GEN-LAST:event_jTxtFechaMouseClicked
+
+    private void jButtonControlMovimientosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonControlMovimientosActionPerformed
+        // TODO add your handling code here:
+        jButtonIngrLlantasNuevas.setBackground(Color.BLACK);
+        jButtonIngrLlantasNuevas.setForeground(Color.WHITE);
+        jButtonControlSemanal.setBackground(Color.BLACK);
+        jButtonControlSemanal.setForeground(Color.WHITE);
+        jButtonControlMovimientos.setBackground(Color.WHITE);
+        jButtonControlMovimientos.setForeground(Color.BLACK);
+        jButtonControlPresiones.setBackground(Color.WHITE);
+        jButtonControlPresiones.setForeground(Color.BLACK);
+        
+    }//GEN-LAST:event_jButtonControlMovimientosActionPerformed
+
+    private void jButtonIngrLlantasNuevasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonIngrLlantasNuevasActionPerformed
+        // TODO add your handling code here:
+       java.awt.EventQueue.invokeLater(new Runnable() {
+           @Override
+            public void run() {
+                new Ingreso_Llantas_Nuevas().setVisible(true);
+            }
+       });
+       this.dispose();
+    }//GEN-LAST:event_jButtonIngrLlantasNuevasActionPerformed
+
+    private void jButtonControlSemanalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonControlSemanalActionPerformed
+        // TODO add your handling code here:
+        jButtonControlSemanal.setBackground(Color.WHITE);
+        jButtonControlSemanal.setForeground(Color.BLACK);
+        jButtonControlMovimientos.setBackground(Color.BLACK);
+        jButtonControlMovimientos.setForeground(Color.WHITE);
+        jButtonIngrLlantasNuevas.setBackground(Color.BLACK);
+        jButtonIngrLlantasNuevas.setForeground(Color.WHITE);
+         java.awt.EventQueue.invokeLater(new Runnable() {
+           @Override
+            public void run() {
+                new Control_LlantasSemanal().setVisible(true);
+            }
+       });
+       this.dispose();
+        
+    }//GEN-LAST:event_jButtonControlSemanalActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        // TODO add your handling code here:
+        if (DataUser.permiso_control_parametros){
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                new ParametrosEmpresa().setVisible(true);
+            }
+        });
+        this.dispose();}
+        else{
+        JOptionPane.showMessageDialog(rootPane, "El usuario "+DataUser.username+" no tiene permisos para realizar esta función. Consulte al administrator del sistema", "Sistema de Control de Indicadores", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jButtonListadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonListadoActionPerformed
+        // TODO add your handling code here:
+         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                new ListadoMovimientos().setVisible(true);
+            }
+        });
+        this.dispose();
+    }//GEN-LAST:event_jButtonListadoActionPerformed
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        // TODO add your handling code here:
+        if (DataUser.permiso_control_baterias){
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                new Control_Baterias().setVisible(true);
+            }
+        });
+        this.dispose();}
+        else{
+            JOptionPane.showMessageDialog(rootPane, "El usuario "+DataUser.username+" no tiene permisos para realizar esta función. Consulte al administrator del sistema", "Sistema de Control de Indicadores", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void jTextPresionAireEntraKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextPresionAireEntraKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode()==KeyEvent.VK_ENTER){
+            jButtonGuardarActionPerformed(null);
+        }
+    }//GEN-LAST:event_jTextPresionAireEntraKeyPressed
+
+    private void jButtonReporteriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonReporteriaActionPerformed
+        // TODO add your handling code here:
+        if (DataUser.permitereporteria){
+            java.awt.EventQueue.invokeLater(new Runnable() {
+                @Override
+                public void run() {
+                    new Reporteria().setVisible(true);
+                }
+            });
+            this.dispose();
+        }
+        else{
+            JOptionPane.showMessageDialog(rootPane, "El usuario "+DataUser.username+" no tiene permisos para realizar esta función. Consulte al administrator del sistema", "Sistema de Control de Indicadores", JOptionPane.ERROR_MESSAGE);
+
+        }
+    }//GEN-LAST:event_jButtonReporteriaActionPerformed
+
+    private void jTxtProfundidadEntraKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTxtProfundidadEntraKeyPressed
+        // TODO add your handling code here:
+         if (evt.getKeyCode()==KeyEvent.VK_ENTER){
+            jButtonGuardarActionPerformed(null);
+        }
+    }//GEN-LAST:event_jTxtProfundidadEntraKeyPressed
+
+    private void jTxtCodLlantaEntraKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTxtCodLlantaEntraKeyPressed
+        // TODO add your handling code here:
+         if (evt.getKeyCode()==KeyEvent.VK_ENTER){
+            jButtonGuardarActionPerformed(null);
+        }
+    }//GEN-LAST:event_jTxtCodLlantaEntraKeyPressed
+
+    private void jTxtProfundidadSaleKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTxtProfundidadSaleKeyPressed
+        // TODO add your handling code here:
+         if (evt.getKeyCode()==KeyEvent.VK_ENTER){
+            jButtonGuardarActionPerformed(null);
+        }
+    }//GEN-LAST:event_jTxtProfundidadSaleKeyPressed
+
+    private void jTxtCodigoLlantaSaleKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTxtCodigoLlantaSaleKeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTxtCodigoLlantaSaleKeyReleased
+
+    private void jTxtCodigoLlantaSaleKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTxtCodigoLlantaSaleKeyPressed
+        // TODO add your handling code here:
+         if (evt.getKeyCode()==KeyEvent.VK_ENTER){
+            jButtonGuardarActionPerformed(null);
+        }
+    }//GEN-LAST:event_jTxtCodigoLlantaSaleKeyPressed
+
+    private void jTxtKilometrajeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTxtKilometrajeKeyPressed
+        // TODO add your handling code here:
+         if (evt.getKeyCode()==KeyEvent.VK_ENTER){
+            jButtonGuardarActionPerformed(null);
+        }
+    }//GEN-LAST:event_jTxtKilometrajeKeyPressed
+
+    private void jButtonControlMovimientos1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonControlMovimientos1ActionPerformed
+        // TODO add your handling code here:
+         java.awt.EventQueue.invokeLater(new Runnable() {
+           @Override
+            public void run() {
+                new Control_ReencauchesLlantas().setVisible(true);
+            }
+       });
+       this.dispose();
+    }//GEN-LAST:event_jButtonControlMovimientos1ActionPerformed
+
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+        // TODO add your handling code here:
+        if (DataUser.permiso_creacion_ordenestrabajo || DataUser.permiso_cierre_ordenestrabajo){
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                new ListadoOrdenesTrabajo().setVisible(true);
+            }
+        });
+        this.dispose();}
+        else{
+            JOptionPane.showMessageDialog(rootPane, "El usuario "+DataUser.username+" no tiene permisos para realizar esta función. Consulte al administrator del sistema", "Sistema de Control de Indicadores", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jButton9ActionPerformed
+
+    private void jButtonControlPresionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonControlPresionesActionPerformed
+        // TODO add your handling code here:
+        jButtonControlSemanal.setBackground(Color.WHITE);
+        jButtonControlSemanal.setForeground(Color.BLACK);
+        jButtonControlSemanal.setBackground(Color.BLACK);
+        jButtonControlSemanal.setForeground(Color.WHITE);
+        jButtonControlMovimientos.setBackground(Color.BLACK);
+        jButtonControlMovimientos.setForeground(Color.WHITE);
+        jButtonIngrLlantasNuevas.setBackground(Color.BLACK);
+        jButtonIngrLlantasNuevas.setForeground(Color.WHITE);
+         java.awt.EventQueue.invokeLater(new Runnable() {
+           @Override
+            public void run() {
+                new Control_PresionesLlantasSemanal().setVisible(true);
+            }
+       });
+       this.dispose();
+    }//GEN-LAST:event_jButtonControlPresionesActionPerformed
+    
+    public boolean testLlantaNueva(String s){
+        String sentencia="select EstadoLlanta, Status from Mantenimiento_IngresoLlantasNuevas where Cod_Llanta='"+s+"' order by Consecutivo DESC limit 1";
+        ResultSet rs=modulo.Listar(sentencia);
+        if (rs!=null){
+            try {
+                rs.first();
+                tipoinventariollanta=rs.getInt("EstadoLlanta");
+                disponibilidadllanta=rs.getInt("Status");
+                if (disponibilidadllanta!=3){
+                    JOptionPane.showMessageDialog(rootPane, "Llanta esta actualmente no esta disponible");
+                    return false;
+                }
+                return true;
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(rootPane, "Codigo de Llanta no existe");
+                Logger.getLogger(Control_Llantas.class.getName()).log(Level.SEVERE, null, ex);
+                return false;
+            }
+        }
+        else{
+            JOptionPane.showConfirmDialog(rootPane, "Error de Comunicacion con Servidor SQL. Intente de nuevo");
+            return false;
+        }
+    }
+    public void clearData(){
+        jTextPresionAireEntra.setText("");
+        jTxtProfundidadEntra.setText("");
+       // jTxtCarreras.setText("");
+        jTxtCodLlantaEntra.setText("");        
+        codLlantaEntraOld="";
+        codLlantaSaleOld="";
+        isActualizacion=false;
+        jTxtCodigoLlantaSale.setText("");
+        jTxtKilometraje.setText("");
+        jTxtProfundidadSale.setText("");        
+        //jTxtRol.setText("");
+        unidad=0;
+        statusllanteentrante=0;
+        isFirstRegister=false;
+        jComboBoxBuses.grabFocus();
+    }
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(Control_Llantas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(Control_Llantas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(Control_Llantas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(Control_Llantas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new Control_Llantas().setVisible(true);
+            }
+        });
+    }
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
+    private javax.swing.JButton jButton8;
+    private javax.swing.JButton jButton9;
+    private javax.swing.JButton jButtonControlMovimientos;
+    private javax.swing.JButton jButtonControlMovimientos1;
+    private javax.swing.JButton jButtonControlPresiones;
+    private javax.swing.JButton jButtonControlSemanal;
+    private javax.swing.JButton jButtonGuardar;
+    private javax.swing.JButton jButtonIngrLlantasNuevas;
+    private javax.swing.JButton jButtonListado;
+    private javax.swing.JButton jButtonReporteria;
+    private javax.swing.JComboBox jComboBoxBuses;
+    private javax.swing.JComboBox jComboBoxDestino;
+    private javax.swing.JComboBox jComboBoxPosicionSale;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel38;
+    private javax.swing.JLabel jLabel39;
+    private javax.swing.JLabel jLabel40;
+    private javax.swing.JLabel jLabel41;
+    private javax.swing.JLabel jLabel42;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel jLabelTitulo;
+    private javax.swing.JLabel jLabelVersion;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JTextField jTextPresionAireEntra;
+    private javax.swing.JTextField jTxtCodLlantaEntra;
+    private javax.swing.JTextField jTxtCodigoLlantaSale;
+    private javax.swing.JTextField jTxtFecha;
+    private javax.swing.JTextField jTxtKilometraje;
+    private javax.swing.JTextField jTxtProfundidadEntra;
+    private javax.swing.JTextField jTxtProfundidadSale;
+    // End of variables declaration//GEN-END:variables
+    ControlMovimientoLlantas datos=new ControlMovimientoLlantas();
+    static ModuloMySQL modulo=new ModuloMySQL();
+    static int idDestino;
+    static java.sql.Date fechallantasale;
+    static int unidadllantaentra;
+    static float kmllantasale;
+    static int statusllanteentrante=0;
+    static java.sql.Date fechallantaentra;
+    static String id=ValoresEstaticos.getIdEmpresa()+"#";
+    static int tipoinventariollanta;
+    static int disponibilidadllanta;
+    static boolean isFirstRegister;
+    static boolean isActualizacion;
+    static String codLlantaSaleOld;
+    static String codLlantaEntraOld;
+    static int consecutivoOld;
+    static int unidad=0;
+}

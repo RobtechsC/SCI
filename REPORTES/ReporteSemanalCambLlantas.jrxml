@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReporteGeneralEntreFechas" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isSummaryNewPage="true" uuid="e4d4e419-edb8-4824-b47e-dd2f72c92cb6">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Users\\Esteban\\Documents\\iReport\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="FechaInicial" class="java.util.Date"/>
+	<parameter name="FechaFinal" class="java.util.Date"/>
+	<parameter name="CodigoEmpresa" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     Mantenimiento_MovimientoLlantas.`Fecha` AS Mantenimiento_MovimientoLlantas_Fecha,
+     Mantenimiento_MovimientoLlantas.`Unidad` AS Mantenimiento_MovimientoLlantas_Unidad,
+     Mantenimiento_MovimientoLlantas.`Kilometraje` AS Mantenimiento_MovimientoLlantas_Kilometraje,
+     Mantenimiento_MovimientoLlantas.`Cod_Llanta_Sale` AS Mantenimiento_MovimientoLlantas_Cod_Llanta_Sale,
+     Mantenimiento_MovimientoLlantas.`Profundidad_Llanta_Sale` AS Mantenimiento_MovimientoLlantas_Profundidad_Llanta_Sale,
+     Mantenimiento_MovimientoLlantas.`Posicion_Llanta_Sale` AS Mantenimiento_MovimientoLlantas_Posicion_Llanta_Sale,
+     Mantenimiento_MovimientoLlantas.`Destino_Llanta_Sale` AS Mantenimiento_MovimientoLlantas_Destino_Llanta_Sale,
+     Mantenimiento_MovimientoLlantas.`Cod_Llanta_Entra` AS Mantenimiento_MovimientoLlantas_Cod_Llanta_Entra,
+     Mantenimiento_MovimientoLlantas.`Profundidad_Llanta_Entra` AS Mantenimiento_MovimientoLlantas_Profundidad_Llanta_Entra,
+     Mantenimiento_MovimientoLlantas.`Posicion_Llanta_Entra` AS Mantenimiento_MovimientoLlantas_Posicion_Llanta_Entra,
+     Mantenimiento_MovimientoLlantas.`Presion_Aire_Llanta_Entra` AS Mantenimiento_MovimientoLlantas_Presion_Aire_Llanta_Entra,
+     Mantenimiento_MovimientoLlantas.`IdEmpresa` AS Mantenimiento_MovimientoLlantas_IdEmpresa,
+     Empresas.`Nombre_Empresa` AS Empresas_Nombre_Empresa,
+     Mantenimiento_MovimientoLlantas.`Consecutivo` AS Mantenimiento_MovimientoLlantas_Consecutivo,
+WEEK(Mantenimiento_MovimientoLlantas.`Fecha`) AS Mantenimiento_MovimientoLlantas_SemanaAño
+FROM
+     `Empresas` Empresas INNER JOIN `Mantenimiento_MovimientoLlantas` Mantenimiento_MovimientoLlantas ON Empresas.`CodigoEmpresa` = Mantenimiento_MovimientoLlantas.`IdEmpresa`
+WHERE
+  Mantenimiento_MovimientoLlantas.`Fecha` BETWEEN $P{FechaInicial} and $P{FechaFinal} and Mantenimiento_MovimientoLlantas.`IdEmpresa`=$P{CodigoEmpresa}
+ORDER BY
+
+     Mantenimiento_MovimientoLlantas.`Fecha` ASC,  Mantenimiento_MovimientoLlantas.`Unidad`]]>
+	</queryString>
+	<field name="Mantenimiento_MovimientoLlantas_Fecha" class="java.sql.Date"/>
+	<field name="Mantenimiento_MovimientoLlantas_Unidad" class="java.lang.Integer"/>
+	<field name="Mantenimiento_MovimientoLlantas_Kilometraje" class="java.lang.Float"/>
+	<field name="Mantenimiento_MovimientoLlantas_Cod_Llanta_Sale" class="java.lang.String"/>
+	<field name="Mantenimiento_MovimientoLlantas_Profundidad_Llanta_Sale" class="java.lang.Float"/>
+	<field name="Mantenimiento_MovimientoLlantas_Posicion_Llanta_Sale" class="java.lang.String"/>
+	<field name="Mantenimiento_MovimientoLlantas_Destino_Llanta_Sale" class="java.lang.Integer"/>
+	<field name="Mantenimiento_MovimientoLlantas_Cod_Llanta_Entra" class="java.lang.String"/>
+	<field name="Mantenimiento_MovimientoLlantas_Profundidad_Llanta_Entra" class="java.lang.Float"/>
+	<field name="Mantenimiento_MovimientoLlantas_Posicion_Llanta_Entra" class="java.lang.String"/>
+	<field name="Mantenimiento_MovimientoLlantas_Presion_Aire_Llanta_Entra" class="java.lang.Float"/>
+	<field name="Mantenimiento_MovimientoLlantas_IdEmpresa" class="java.lang.Integer"/>
+	<field name="Empresas_Nombre_Empresa" class="java.lang.String"/>
+	<field name="Mantenimiento_MovimientoLlantas_Consecutivo" class="java.lang.Integer"/>
+	<field name="Mantenimiento_MovimientoLlantas_SemanaAño" class="java.lang.Long"/>
+	<variable name="Mantenimiento_MovimientoLlantas_Kilometraje_1" class="java.lang.Float" resetType="Group" resetGroup="Fecha" calculation="Sum">
+		<variableExpression><![CDATA[$F{Mantenimiento_MovimientoLlantas_Kilometraje}]]></variableExpression>
+	</variable>
+	<variable name="Mantenimiento_MovimientoLlantas_Consecutivo_1" class="java.lang.Integer" resetType="Group" resetGroup="Fecha" calculation="DistinctCount">
+		<variableExpression><![CDATA[$F{Mantenimiento_MovimientoLlantas_Consecutivo}]]></variableExpression>
+	</variable>
+	<variable name="ContadorConsecutivoxUnidad" class="java.lang.Integer" resetType="Group" resetGroup="Fecha" calculation="Count">
+		<variableExpression><![CDATA[$F{Mantenimiento_MovimientoLlantas_Consecutivo}]]></variableExpression>
+	</variable>
+	<group name="Empresa">
+		<groupExpression><![CDATA[$F{Empresas_Nombre_Empresa}]]></groupExpression>
+		<groupHeader>
+			<band height="25">
+				<textField>
+					<reportElement x="2" y="0" width="800" height="20" uuid="58b66b48-468d-430c-8e13-a0cd490efcdc"/>
+					<textElement>
+						<font size="14" isBold="true" isUnderline="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{Empresas_Nombre_Empresa}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+	</group>
+	<group name="Fecha">
+		<groupExpression><![CDATA[$F{Mantenimiento_MovimientoLlantas_SemanaAño}]]></groupExpression>
+		<groupHeader>
+			<band height="65">
+				<textField pattern="">
+					<reportElement mode="Opaque" x="0" y="0" width="797" height="20" forecolor="#FFFFFF" backcolor="#006699" uuid="b2e851a1-2381-4fdb-8e04-5b386e0ad377"/>
+					<textElement textAlignment="Center">
+						<font size="12" isBold="true" isUnderline="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["SEMANA "+$F{Mantenimiento_MovimientoLlantas_SemanaAño}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement mode="Opaque" x="192" y="20" width="304" height="20" forecolor="#FFFFFF" backcolor="#333333" uuid="d0dc74f1-b921-49a0-8642-46a94bb68530"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="12" isBold="true" isUnderline="true"/>
+					</textElement>
+					<text><![CDATA[Detalles Llanta Saliente]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="64" y="42" width="54" height="15" uuid="af2edf4d-5b9c-4ae9-9e9a-d8ee084e4d11"/>
+					<textElement textAlignment="Center">
+						<font isUnderline="true"/>
+					</textElement>
+					<text><![CDATA[Unidad]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="192" y="42" width="66" height="15" uuid="57da8db4-8dd2-476e-be33-260a4e20154a"/>
+					<textElement>
+						<font isUnderline="true"/>
+					</textElement>
+					<text><![CDATA[Kilometraje]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="258" y="42" width="66" height="15" uuid="ca49f7ab-6553-4a76-86bb-a2d0819b579a"/>
+					<textElement>
+						<font isUnderline="true"/>
+					</textElement>
+					<text><![CDATA[CodLlanta]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="324" y="42" width="62" height="15" uuid="9390624b-904a-44c9-a605-dd98cbf6070c"/>
+					<textElement textAlignment="Center">
+						<font isUnderline="true"/>
+					</textElement>
+					<text><![CDATA[Profundidad]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="386" y="42" width="50" height="15" uuid="b06d6c4e-4726-4c52-bf8d-03f788a19c57"/>
+					<textElement textAlignment="Center">
+						<font isUnderline="true"/>
+					</textElement>
+					<text><![CDATA[Posicion]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="436" y="42" width="60" height="15" uuid="80e790ec-1245-4321-8089-31144955a7b5"/>
+					<textElement textAlignment="Center">
+						<font isUnderline="true"/>
+					</textElement>
+					<text><![CDATA[Destino]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="2" y="42" width="62" height="15" uuid="e1481479-c521-4651-90b9-0c7169611c40"/>
+					<textElement>
+						<font isUnderline="true"/>
+					</textElement>
+					<text><![CDATA[Fecha]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="505" y="42" width="60" height="15" uuid="9bfc3469-0c70-47ae-a737-0bf2330e931c"/>
+					<textElement textAlignment="Center">
+						<font isUnderline="true"/>
+					</textElement>
+					<text><![CDATA[CodLlanta]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="505" y="20" width="191" height="20" forecolor="#FFFFFF" backcolor="#333333" uuid="c4baa78c-7d86-43d7-988d-d27bef8829fe"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="12" isBold="true" isUnderline="true"/>
+					</textElement>
+					<text><![CDATA[Detalles Llanta Entrante]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="565" y="42" width="60" height="15" uuid="3d39e937-893d-4810-a636-be7da5804a76"/>
+					<textElement textAlignment="Center">
+						<font isUnderline="true"/>
+					</textElement>
+					<text><![CDATA[Profundidad]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="625" y="40" width="71" height="15" uuid="5279f24b-8b0e-4986-b32e-4c8b5e0d3f89"/>
+					<textElement textAlignment="Center">
+						<font isUnderline="true"/>
+					</textElement>
+					<text><![CDATA[Presion Aire]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="0" y="20" width="118" height="20" forecolor="#FFFFFF" backcolor="#333333" uuid="c1dab905-e657-4ac3-b0aa-7337add0d6b1"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="12" isBold="true" isUnderline="true"/>
+					</textElement>
+					<text><![CDATA[Detalles Unidad]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="24">
+				<textField>
+					<reportElement mode="Opaque" x="163" y="8" width="634" height="15" forecolor="#FFFFFF" backcolor="#000000" uuid="9722f83e-bb5b-4c38-a04b-c9502b886009"/>
+					<textElement>
+						<font size="10" isBold="true" isUnderline="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{Mantenimiento_MovimientoLlantas_Consecutivo_1}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement mode="Opaque" x="0" y="8" width="163" height="15" forecolor="#FFFFFF" backcolor="#000000" uuid="c83491d0-9be1-4e34-99c2-af8120c951c8"/>
+					<textElement textAlignment="Right">
+						<font size="10" isBold="true" isUnderline="true"/>
+					</textElement>
+					<text><![CDATA[TOTAL DE MOVIMIENTOS:  ]]></text>
+				</staticText>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="Unidad">
+		<groupExpression><![CDATA[$F{Mantenimiento_MovimientoLlantas_Unidad}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<image>
+				<reportElement x="10" y="10" width="200" height="49" uuid="c678d0e0-34e3-488b-8a2d-62a21f3d5819"/>
+				<imageExpression><![CDATA["C:\\SCI\\logorobtech.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="231" y="12" width="500" height="27" uuid="03c84e28-0fa1-4905-b99f-53c48350fa3f"/>
+				<textElement textAlignment="Center">
+					<font size="16" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[REPORTE SEMANAL ENTRE FECHAS AGRUPADO POR UNIDAD]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="231" y="39" width="76" height="20" uuid="cbfdac78-9d54-4dba-9198-383e20891697"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true" isUnderline="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{FechaInicial}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="307" y="39" width="76" height="20" uuid="e4e9c408-d6a5-4aea-88d2-6e6361dbb4dd"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true" isUnderline="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{FechaFinal}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="744" y="10" width="58" height="60" uuid="3b3c98cd-b8bb-4bad-ad19-fdf97ccb1f2d"/>
+				<imageExpression><![CDATA["C:\\SCI\\tatsa2.png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<detail>
+		<band height="16" splitType="Stretch">
+			<textField>
+				<reportElement x="64" y="0" width="54" height="15" uuid="5e71820a-5cda-47f3-abc0-9a15cb6fedaf"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{Mantenimiento_MovimientoLlantas_Unidad}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="192" y="0" width="66" height="15" uuid="3d8ac416-4944-4b64-8ad3-712b7538eaa7"/>
+				<textFieldExpression><![CDATA[$F{Mantenimiento_MovimientoLlantas_Kilometraje}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement x="258" y="0" width="66" height="15" uuid="c62ce4cf-8561-4fae-b222-e0d672f0fb2b"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{Mantenimiento_MovimientoLlantas_Cod_Llanta_Sale}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement x="324" y="0" width="62" height="15" uuid="62648c77-b47d-4087-ba4f-c092a1509010"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{Mantenimiento_MovimientoLlantas_Profundidad_Llanta_Sale}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement x="436" y="0" width="60" height="15" isRemoveLineWhenBlank="true" uuid="95dd14b4-eed5-48e1-a795-b33bf66ad148"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{Mantenimiento_MovimientoLlantas_Destino_Llanta_Sale}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="0" y="0" width="64" height="15" uuid="0a432195-1bed-4715-bcd2-61446ef18e11"/>
+				<textFieldExpression><![CDATA[$F{Mantenimiento_MovimientoLlantas_Fecha}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="386" y="0" width="50" height="15" uuid="56a7f412-340b-4514-bc94-607f91f51f76"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{Mantenimiento_MovimientoLlantas_Posicion_Llanta_Sale}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement x="505" y="0" width="60" height="15" isRemoveLineWhenBlank="true" uuid="6c472783-7305-4879-ab5b-8e05ec95abaa"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{Mantenimiento_MovimientoLlantas_Cod_Llanta_Entra}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement x="565" y="0" width="60" height="15" isRemoveLineWhenBlank="true" uuid="3ec59366-039a-4af1-a139-b06a0cd0d2f3"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{Mantenimiento_MovimientoLlantas_Profundidad_Llanta_Entra}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement x="625" y="0" width="71" height="15" isRemoveLineWhenBlank="true" uuid="5c3819c2-4b15-4354-9b2a-0bb3a4f50f4c"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{Mantenimiento_MovimientoLlantas_Presion_Aire_Llanta_Entra}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="88">
+			<barChart>
+				<chart>
+					<reportElement stretchType="RelativeToBandHeight" x="2" y="1" width="800" height="59" uuid="2e14e67c-5295-4254-970b-bda640f803cd"/>
+					<chartTitle>
+						<font size="12" isBold="true"/>
+						<titleExpression><![CDATA["TOTAL DE CAMBIOS DE BATERIA POR UNIDAD"]]></titleExpression>
+					</chartTitle>
+					<chartSubtitle/>
+					<chartLegend position="Right"/>
+				</chart>
+				<categoryDataset>
+					<categorySeries>
+						<seriesExpression><![CDATA["Cambios de Llanta"]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{Mantenimiento_MovimientoLlantas_SemanaAño}]]></categoryExpression>
+						<valueExpression><![CDATA[$V{ContadorConsecutivoxUnidad}]]></valueExpression>
+					</categorySeries>
+				</categoryDataset>
+				<barPlot isShowLabels="true">
+					<plot>
+						<seriesColor seriesOrder="0" color="#006699"/>
+					</plot>
+					<itemLabel>
+						<font size="12" isBold="true" isUnderline="true"/>
+					</itemLabel>
+					<categoryAxisLabelExpression><![CDATA["SEMANA"]]></categoryAxisLabelExpression>
+					<categoryAxisFormat>
+						<axisFormat>
+							<labelFont>
+								<font size="12" isBold="true"/>
+							</labelFont>
+							<tickLabelFont>
+								<font size="10"/>
+							</tickLabelFont>
+						</axisFormat>
+					</categoryAxisFormat>
+					<valueAxisLabelExpression><![CDATA["CAMBIOS DE BATERIA"]]></valueAxisLabelExpression>
+					<valueAxisFormat>
+						<axisFormat>
+							<labelFont>
+								<font size="12" isBold="true"/>
+							</labelFont>
+							<tickLabelFont>
+								<font size="10"/>
+							</tickLabelFont>
+						</axisFormat>
+					</valueAxisFormat>
+				</barPlot>
+			</barChart>
+			<break>
+				<reportElement x="0" y="59" width="100" height="1" uuid="4b3a37f4-34c7-42c6-84c2-401b525ec677"/>
+			</break>
+		</band>
+	</summary>
+</jasperReport>

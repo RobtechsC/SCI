@@ -1,0 +1,502 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RendimientosDiariosxBus" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isSummaryNewPage="true" uuid="78effde2-cce4-4bfb-a827-96aed0bb0e30">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="FechaInicial" class="java.sql.Timestamp">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="FechaFinal" class="java.sql.Timestamp">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     Ingreso_Datos.`Consecutivo` AS Ingreso_Datos_Consecutivo,
+     Ingreso_Datos.`CodigoEmpresa` AS Ingreso_Datos_CodigoEmpresa,
+     Ingreso_Datos.`Fecha` AS Ingreso_Datos_Fecha,
+     Ingreso_Datos.`CodConductor` AS Ingreso_Datos_CodConductor,
+     Ingreso_Datos.`Ramal` AS Ingreso_Datos_Ramal,
+     Ingreso_Datos.`Unidad` AS Ingreso_Datos_Unidad,
+     Ingreso_Datos.`Litros_Dispensados` AS Ingreso_Datos_Litros_Dispensados,
+     Ingreso_Datos.`Kilometros_Recorridos` AS Ingreso_Datos_Kilometros_Recorridos,
+     Ingreso_Datos.`Ingresos_Dia` AS Ingreso_Datos_Ingresos_Dia,
+     Ingreso_Datos.`Total_Pasajeros` AS Ingreso_Datos_Total_Pasajeros,
+     Ingreso_Datos.`Total_Cedulas` AS Ingreso_Datos_Total_Cedulas,
+     Ingreso_Datos.`Cant_Medias_Carreras` AS Ingreso_Datos_Cant_Medias_Carreras,
+     Ingreso_Datos.`Horas_Laboradas_Barras` AS Ingreso_Datos_Horas_Laboradas_Barras,
+     Ingreso_Datos.`Horas_Laboradas_Rol` AS Ingreso_Datos_Horas_Laboradas_Rol,
+     Ingreso_Datos.`Eficiencia_Horas_Laboradas` AS Ingreso_Datos_Eficiencia_Horas_Laboradas,
+     Ingreso_Datos.`Marcas_Totales` AS Ingreso_Datos_Marcas_Totales,
+     Ingreso_Datos.`Marcas_Efectivas` AS Ingreso_Datos_Marcas_Efectivas,
+     Ingreso_Datos.`Marcas_Totales_Carreras` AS Ingreso_Datos_Marcas_Totales_Carreras,
+     Ingreso_Datos.`Marcas_Efectivas_Carreras` AS Ingreso_Datos_Marcas_Efectivas_Carreras,
+     Ingreso_Datos.`Marcas_Kilometro` AS Ingreso_Datos_Marcas_Kilometro,
+     Ingreso_Datos.`Porcentaje_AdultoMayor` AS Ingreso_Datos_Porcentaje_AdultoMayor,
+     Ingreso_Datos.`Litros_Carrera` AS Ingreso_Datos_Litros_Carrera,
+     Ingreso_Datos.`Litros_Pasajero` AS Ingreso_Datos_Litros_Pasajero,
+     Ingreso_Datos.`Litros_Km` AS Ingreso_Datos_Litros_Km,
+     Ingreso_Datos.`Km_Litros` AS Ingreso_Datos_Km_Litros,
+     Ingreso_Datos.`Dinero_Carrera` AS Ingreso_Datos_Dinero_Carrera,
+     Ingreso_Datos.`Dinero_Km` AS Ingreso_Datos_Dinero_Km
+FROM
+     `Ingreso_Datos` Ingreso_Datos
+
+WHERE Ingreso_Datos.`Fecha` BETWEEN $P{FechaInicial} and $P{FechaFinal}
+
+ORDER BY
+Ingreso_Datos.`Unidad`, Ingreso_Datos.`Fecha`]]>
+	</queryString>
+	<field name="Ingreso_Datos_Consecutivo" class="java.lang.Integer"/>
+	<field name="Ingreso_Datos_CodigoEmpresa" class="java.lang.Integer"/>
+	<field name="Ingreso_Datos_Fecha" class="java.sql.Timestamp"/>
+	<field name="Ingreso_Datos_CodConductor" class="java.lang.String"/>
+	<field name="Ingreso_Datos_Ramal" class="java.lang.String"/>
+	<field name="Ingreso_Datos_Unidad" class="java.lang.String"/>
+	<field name="Ingreso_Datos_Litros_Dispensados" class="java.math.BigDecimal"/>
+	<field name="Ingreso_Datos_Kilometros_Recorridos" class="java.lang.Float"/>
+	<field name="Ingreso_Datos_Ingresos_Dia" class="java.lang.Double"/>
+	<field name="Ingreso_Datos_Total_Pasajeros" class="java.lang.Integer"/>
+	<field name="Ingreso_Datos_Total_Cedulas" class="java.lang.Integer"/>
+	<field name="Ingreso_Datos_Cant_Medias_Carreras" class="java.lang.Float"/>
+	<field name="Ingreso_Datos_Horas_Laboradas_Barras" class="java.lang.Float"/>
+	<field name="Ingreso_Datos_Horas_Laboradas_Rol" class="java.lang.Float"/>
+	<field name="Ingreso_Datos_Eficiencia_Horas_Laboradas" class="java.lang.Float"/>
+	<field name="Ingreso_Datos_Marcas_Totales" class="java.lang.Integer"/>
+	<field name="Ingreso_Datos_Marcas_Efectivas" class="java.lang.Integer"/>
+	<field name="Ingreso_Datos_Marcas_Totales_Carreras" class="java.lang.Integer"/>
+	<field name="Ingreso_Datos_Marcas_Efectivas_Carreras" class="java.lang.Integer"/>
+	<field name="Ingreso_Datos_Marcas_Kilometro" class="java.lang.Float"/>
+	<field name="Ingreso_Datos_Porcentaje_AdultoMayor" class="java.lang.Float"/>
+	<field name="Ingreso_Datos_Litros_Carrera" class="java.lang.Float"/>
+	<field name="Ingreso_Datos_Litros_Pasajero" class="java.lang.Float"/>
+	<field name="Ingreso_Datos_Litros_Km" class="java.lang.Float"/>
+	<field name="Ingreso_Datos_Km_Litros" class="java.lang.Float"/>
+	<field name="Ingreso_Datos_Dinero_Carrera" class="java.lang.Float"/>
+	<field name="Ingreso_Datos_Dinero_Km" class="java.lang.Float"/>
+	<variable name="Ingreso_Datos_Horas_Laboradas_Barras_1" class="java.lang.Float" resetType="Group" resetGroup="Unidad" calculation="Sum">
+		<variableExpression><![CDATA[$F{Ingreso_Datos_Horas_Laboradas_Barras}]]></variableExpression>
+	</variable>
+	<variable name="Ingreso_Datos_Eficiencia_Horas_Laboradas_1" class="java.lang.Float" resetType="Group" resetGroup="Unidad" calculation="Average">
+		<variableExpression><![CDATA[$F{Ingreso_Datos_Eficiencia_Horas_Laboradas}]]></variableExpression>
+	</variable>
+	<variable name="Ingreso_Datos_Litros_Dispensados_1" class="java.math.BigDecimal" resetType="Group" resetGroup="Unidad" calculation="Sum">
+		<variableExpression><![CDATA[$F{Ingreso_Datos_Litros_Dispensados}]]></variableExpression>
+	</variable>
+	<variable name="Ingreso_Datos_Kilometros_Recorridos_1" class="java.lang.Float" resetType="Group" resetGroup="Unidad" calculation="Sum">
+		<variableExpression><![CDATA[$F{Ingreso_Datos_Kilometros_Recorridos}]]></variableExpression>
+	</variable>
+	<variable name="Ingreso_Datos_Marcas_Kilometro_1" class="java.lang.Float" resetType="Group" resetGroup="Unidad" calculation="Average">
+		<variableExpression><![CDATA[$F{Ingreso_Datos_Marcas_Kilometro}]]></variableExpression>
+	</variable>
+	<variable name="Ingreso_Datos_Litros_Carrera_1" class="java.lang.Float" resetType="Group" resetGroup="Unidad" calculation="Average">
+		<variableExpression><![CDATA[$F{Ingreso_Datos_Litros_Carrera}]]></variableExpression>
+	</variable>
+	<variable name="Ingreso_Datos_Litros_Pasajero_1" class="java.lang.Float" resetType="Group" resetGroup="Unidad" calculation="Average">
+		<variableExpression><![CDATA[$F{Ingreso_Datos_Litros_Pasajero}]]></variableExpression>
+	</variable>
+	<variable name="Ingreso_Datos_Litros_Km_1" class="java.lang.Float" resetType="Group" resetGroup="Unidad" calculation="Average">
+		<variableExpression><![CDATA[$F{Ingreso_Datos_Litros_Km}]]></variableExpression>
+	</variable>
+	<variable name="Ingreso_Datos_Km_Litros_1" class="java.lang.Float" resetType="Group" resetGroup="Unidad">
+		<variableExpression><![CDATA[$V{Ingreso_Datos_Kilometros_Recorridos_1}/$V{Ingreso_Datos_Litros_Dispensados_1}]]></variableExpression>
+	</variable>
+	<variable name="Ingreso_Datos_Dinero_Carrera_1" class="java.lang.Float" resetType="Group" resetGroup="Unidad" calculation="Average">
+		<variableExpression><![CDATA[$F{Ingreso_Datos_Dinero_Carrera}]]></variableExpression>
+	</variable>
+	<variable name="Ingreso_Datos_Dinero_Km_1" class="java.lang.Float" resetType="Group" resetGroup="Unidad" calculation="Average">
+		<variableExpression><![CDATA[$F{Ingreso_Datos_Dinero_Km}]]></variableExpression>
+	</variable>
+	<variable name="Ingreso_Datos_Porcentaje_AdultoMayor_1" class="java.lang.Float" resetType="Group" resetGroup="Unidad" calculation="Average">
+		<variableExpression><![CDATA[$F{Ingreso_Datos_Porcentaje_AdultoMayor}]]></variableExpression>
+	</variable>
+	<group name="Unidad">
+		<groupExpression><![CDATA[$F{Ingreso_Datos_Unidad}]]></groupExpression>
+		<groupHeader>
+			<band height="22">
+				<textField>
+					<reportElement x="0" y="0" width="163" height="20" uuid="76cd8c39-3185-412d-9f30-2aff72dac3b8"/>
+					<textElement>
+						<font size="12" isBold="true" isUnderline="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{Ingreso_Datos_Unidad}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="23">
+				<textField pattern="#,##0.00;-#,##0.00">
+					<reportElement x="135" y="0" width="54" height="20" uuid="24e30a70-7efe-486c-a31d-8cbc48bbe475"/>
+					<box>
+						<pen lineStyle="Double"/>
+						<topPen lineWidth="0.75" lineStyle="Double" lineColor="#003366"/>
+						<leftPen lineStyle="Double"/>
+						<bottomPen lineStyle="Double"/>
+						<rightPen lineStyle="Double"/>
+					</box>
+					<textFieldExpression><![CDATA[$V{Ingreso_Datos_Horas_Laboradas_Barras_1}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00;-#,##0.00">
+					<reportElement x="189" y="0" width="71" height="20" uuid="68c7a112-b552-4966-a7da-e8fe7b80719c"/>
+					<textFieldExpression><![CDATA[$V{Ingreso_Datos_Eficiencia_Horas_Laboradas_1}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00;-#,##0.00">
+					<reportElement x="260" y="0" width="59" height="20" uuid="c8a347ea-85a7-4287-b81b-66722bcf04c2"/>
+					<textFieldExpression><![CDATA[$V{Ingreso_Datos_Litros_Dispensados_1}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00;-#,##0.00">
+					<reportElement x="319" y="0" width="62" height="20" uuid="84d6bf8b-c8a7-4010-b0d6-c8216827b70c"/>
+					<textFieldExpression><![CDATA[$V{Ingreso_Datos_Kilometros_Recorridos_1}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00;-#,##0.00">
+					<reportElement x="409" y="0" width="32" height="20" uuid="018ed845-bfda-4f5f-ae79-964b081bc107"/>
+					<textElement textAlignment="Center"/>
+					<textFieldExpression><![CDATA[$V{Ingreso_Datos_Marcas_Kilometro_1}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00;-#,##0.00">
+					<reportElement x="451" y="0" width="23" height="20" uuid="9fa4307b-b5de-4feb-9c09-69c40399f831"/>
+					<textElement textAlignment="Center"/>
+					<textFieldExpression><![CDATA[$V{Ingreso_Datos_Litros_Carrera_1}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00;-#,##0.00">
+					<reportElement x="483" y="0" width="26" height="20" uuid="a2bfc9cb-2229-46ea-a736-f317a64e0603"/>
+					<textElement textAlignment="Center"/>
+					<textFieldExpression><![CDATA[$V{Ingreso_Datos_Litros_Pasajero_1}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00;-#,##0.00">
+					<reportElement x="517" y="0" width="27" height="20" uuid="8236acd8-ea88-4ff6-bd27-4688ffd3b73b"/>
+					<textElement textAlignment="Center"/>
+					<textFieldExpression><![CDATA[$V{Ingreso_Datos_Litros_Km_1}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00;-#,##0.00">
+					<reportElement x="554" y="0" width="31" height="20" uuid="cff42332-b038-4e95-b1f9-ab64592a8b55"/>
+					<textElement textAlignment="Center"/>
+					<textFieldExpression><![CDATA[$V{Ingreso_Datos_Km_Litros_1}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00;-#,##0.00">
+					<reportElement x="623" y="0" width="47" height="20" uuid="d8d6724e-a7f9-4592-b98b-49da79cda9eb"/>
+					<textElement textAlignment="Center"/>
+					<textFieldExpression><![CDATA[$V{Ingreso_Datos_Dinero_Carrera_1}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00;-#,##0.00">
+					<reportElement x="670" y="0" width="53" height="20" uuid="0fc69e04-1496-4867-948e-c29971a1b108"/>
+					<textElement textAlignment="Center"/>
+					<textFieldExpression><![CDATA[$V{Ingreso_Datos_Dinero_Km_1}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00;-#,##0.00">
+					<reportElement x="723" y="0" width="48" height="20" uuid="80910d15-38c2-4604-ad67-1e106be7546f"/>
+					<textElement textAlignment="Center"/>
+					<textFieldExpression><![CDATA[$V{Ingreso_Datos_Porcentaje_AdultoMayor_1}]]></textFieldExpression>
+				</textField>
+			</band>
+			<band height="85">
+				<lineChart>
+					<chart>
+						<reportElement stretchType="RelativeToBandHeight" x="0" y="8" width="802" height="70" uuid="cb4e65b5-ff7c-4feb-83ba-29e6fe2efa99"/>
+						<chartTitle>
+							<titleExpression><![CDATA["RENDIMIENTOS UNIDAD: "+$F{Ingreso_Datos_Unidad}]]></titleExpression>
+						</chartTitle>
+						<chartSubtitle/>
+						<chartLegend/>
+					</chart>
+					<categoryDataset>
+						<dataset resetType="Group" resetGroup="Unidad">
+							<incrementWhenExpression><![CDATA[$F{Ingreso_Datos_Litros_Dispensados}>1]]></incrementWhenExpression>
+						</dataset>
+						<categorySeries>
+							<seriesExpression><![CDATA["M/Km"]]></seriesExpression>
+							<categoryExpression><![CDATA[$F{Ingreso_Datos_Fecha}]]></categoryExpression>
+							<valueExpression><![CDATA[$F{Ingreso_Datos_Marcas_Kilometro}]]></valueExpression>
+						</categorySeries>
+						<categorySeries>
+							<seriesExpression><![CDATA["L/M"]]></seriesExpression>
+							<categoryExpression><![CDATA[$F{Ingreso_Datos_Fecha}]]></categoryExpression>
+							<valueExpression><![CDATA[$F{Ingreso_Datos_Litros_Pasajero}]]></valueExpression>
+						</categorySeries>
+						<categorySeries>
+							<seriesExpression><![CDATA["L/Km"]]></seriesExpression>
+							<categoryExpression><![CDATA[$F{Ingreso_Datos_Fecha}]]></categoryExpression>
+							<valueExpression><![CDATA[$F{Ingreso_Datos_Litros_Km}]]></valueExpression>
+						</categorySeries>
+						<categorySeries>
+							<seriesExpression><![CDATA["K,/L"]]></seriesExpression>
+							<categoryExpression><![CDATA[$F{Ingreso_Datos_Fecha}]]></categoryExpression>
+							<valueExpression><![CDATA[$V{Ingreso_Datos_Km_Litros_1}]]></valueExpression>
+						</categorySeries>
+					</categoryDataset>
+					<linePlot>
+						<plot/>
+						<categoryAxisFormat>
+							<axisFormat/>
+						</categoryAxisFormat>
+						<valueAxisFormat>
+							<axisFormat/>
+						</valueAxisFormat>
+					</linePlot>
+				</lineChart>
+				<break>
+					<reportElement x="0" y="7" width="100" height="1" uuid="875236ab-554f-4829-8d7c-9176be07c514"/>
+				</break>
+				<break>
+					<reportElement x="0" y="79" width="100" height="1" uuid="2e0990f4-268d-4ba8-9cf9-4f09613e4610"/>
+				</break>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="Fecha">
+		<groupExpression><![CDATA[$F{Ingreso_Datos_Fecha}]]></groupExpression>
+		<groupHeader>
+			<band height="31">
+				<textField pattern="dd/MM/yyyy">
+					<reportElement mode="Opaque" x="15" y="0" width="360" height="15" forecolor="#FFFFFF" backcolor="#003366" uuid="a0182fb6-46d9-4a87-bd2b-8b09b2c0a42c"/>
+					<textElement>
+						<font isItalic="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{Ingreso_Datos_Fecha}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="260" y="15" width="59" height="15" uuid="16d55a05-8542-442e-928b-9d46dde7642c"/>
+					<text><![CDATA[Litros]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="319" y="15" width="62" height="15" uuid="6960a8ae-68cd-4045-bb38-bb367f08f82e"/>
+					<text><![CDATA[Kilometraje]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="0" y="15" width="70" height="15" uuid="83a96df1-bf0b-4aa0-b882-ae18640ec0e4"/>
+					<text><![CDATA[Conductor]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="70" y="15" width="65" height="15" uuid="de49e73b-8dd5-4f82-a7d8-7e750204fa0c"/>
+					<text><![CDATA[Ramal]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="135" y="15" width="54" height="15" uuid="0e4224ee-2bd1-4fcc-bb3e-9fa6ff45e22f"/>
+					<text><![CDATA[Horas_Lab]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="189" y="15" width="71" height="15" uuid="9c988992-ca36-4360-a3f8-7fa6d4fc9cbd"/>
+					<text><![CDATA[Eficiencia_H]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="409" y="15" width="32" height="15" uuid="166e1775-9fb4-41bb-864f-82c1541ad418"/>
+					<text><![CDATA[M/Km]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="451" y="15" width="23" height="15" uuid="f04b12e4-310c-4a49-bc7b-28ff76643b38"/>
+					<text><![CDATA[L/C]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="483" y="15" width="26" height="15" uuid="9f8d7935-3cd7-4d09-a4a8-f100f36ead9b"/>
+					<text><![CDATA[L/M]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="517" y="15" width="27" height="15" uuid="39d860c8-d1d5-47d7-ad76-f53717b851fa"/>
+					<text><![CDATA[L/Km]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="554" y="15" width="31" height="15" uuid="cef87dc7-8d63-4825-9828-d73f0083ab0d"/>
+					<text><![CDATA[Km/L]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="624" y="15" width="46" height="15" uuid="31c0da19-77cb-4db5-a037-88d53e4851db"/>
+					<textElement textAlignment="Center"/>
+					<text><![CDATA[Dinero/C]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="670" y="15" width="53" height="15" uuid="6b396537-dbf0-4069-a1d8-fcb930971e51"/>
+					<textElement textAlignment="Center"/>
+					<text><![CDATA[Dinero/Km]]></text>
+				</staticText>
+				<textField pattern="dd/MM/yyyy">
+					<reportElement mode="Opaque" x="409" y="0" width="176" height="15" forecolor="#FFFFFF" backcolor="#003366" uuid="e2b13973-9fb1-488a-86c0-72d82daec032"/>
+					<textElement>
+						<font isItalic="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Rendimientos"]]></textFieldExpression>
+				</textField>
+				<textField pattern="dd/MM/yyyy">
+					<reportElement mode="Opaque" x="626" y="0" width="97" height="15" forecolor="#FFFFFF" backcolor="#003366" uuid="22da48d5-4676-4b5c-8a63-d8bf0f90488d"/>
+					<textElement>
+						<font isItalic="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Ganancias"]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="723" y="15" width="48" height="15" uuid="b563c682-87ca-4c04-8030-088a9117ce6f"/>
+					<textElement textAlignment="Center"/>
+					<text><![CDATA[% A.M]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="47" splitType="Stretch"/>
+	</title>
+	<detail>
+		<band height="28" splitType="Stretch">
+			<textField>
+				<reportElement x="260" y="0" width="59" height="20" uuid="5ed6757b-cde2-4e08-9ba7-b8dc97c68013"/>
+				<textFieldExpression><![CDATA[$F{Ingreso_Datos_Litros_Dispensados}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="319" y="0" width="62" height="20" uuid="3803f9c3-0735-4b51-9a84-ab61d8abf624"/>
+				<textFieldExpression><![CDATA[$F{Ingreso_Datos_Kilometros_Recorridos}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="70" height="20" uuid="272dca7c-9660-470a-b218-429d4b52859d"/>
+				<textFieldExpression><![CDATA[$F{Ingreso_Datos_CodConductor}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="70" y="0" width="65" height="20" uuid="5c7b7f01-ef91-4698-9da5-52a8b6549a03"/>
+				<textFieldExpression><![CDATA[$F{Ingreso_Datos_Ramal}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="135" y="0" width="54" height="20" uuid="99220841-f8c5-4efe-9574-988ec49c4f2a"/>
+				<textFieldExpression><![CDATA[$F{Ingreso_Datos_Horas_Laboradas_Barras}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="189" y="0" width="71" height="20" uuid="f9bccff7-f441-499f-9be3-91d63ced5895"/>
+				<textFieldExpression><![CDATA[$F{Ingreso_Datos_Eficiencia_Horas_Laboradas}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement x="409" y="0" width="32" height="20" uuid="193e3e43-1c43-4dff-8485-35e8cd7c3916"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{Ingreso_Datos_Marcas_Kilometro}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement x="451" y="0" width="23" height="20" uuid="75a19369-f882-4be1-a2e5-c4b1c72e273e"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{Ingreso_Datos_Litros_Carrera}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement x="483" y="0" width="26" height="20" uuid="81ada617-38b6-4669-994d-cf999f933271"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{Ingreso_Datos_Litros_Pasajero}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement x="517" y="0" width="27" height="20" uuid="ee8d4613-ae5a-475c-aa68-557487306c2d"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{Ingreso_Datos_Litros_Km}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement x="554" y="0" width="31" height="20" uuid="1e7fb69b-8d06-4329-9259-7c8e7bb8af16"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{Ingreso_Datos_Km_Litros}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement x="624" y="0" width="46" height="20" uuid="17fff351-adc2-4597-a3fc-9e6c910afd55"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{Ingreso_Datos_Dinero_Carrera}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement x="670" y="0" width="53" height="20" uuid="31435b88-d379-46cf-81de-394c70fda309"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{Ingreso_Datos_Dinero_Km}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement x="723" y="0" width="48" height="20" uuid="916bad96-b2c0-4a87-95aa-a0110daafe0e"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{Ingreso_Datos_Porcentaje_AdultoMayor}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="32" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="368" splitType="Stretch">
+			<break>
+				<reportElement x="0" y="100" width="100" height="1" uuid="cbc12add-a6e6-40f6-ac7e-87386c84a7ec"/>
+			</break>
+			<barChart>
+				<chart>
+					<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="802" height="50" uuid="717ffc9c-f7e4-46b6-9343-eca0d96028fd"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<categoryDataset>
+					<categorySeries>
+						<seriesExpression><![CDATA["L/M"]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{Ingreso_Datos_Unidad}]]></categoryExpression>
+						<valueExpression><![CDATA[$V{Ingreso_Datos_Litros_Pasajero_1}]]></valueExpression>
+					</categorySeries>
+					<categorySeries>
+						<seriesExpression><![CDATA["L/Km"]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{Ingreso_Datos_Unidad}]]></categoryExpression>
+						<valueExpression><![CDATA[$V{Ingreso_Datos_Litros_Km_1}]]></valueExpression>
+					</categorySeries>
+				</categoryDataset>
+				<barPlot>
+					<plot/>
+					<itemLabel/>
+					<categoryAxisFormat>
+						<axisFormat/>
+					</categoryAxisFormat>
+					<valueAxisFormat>
+						<axisFormat/>
+					</valueAxisFormat>
+				</barPlot>
+			</barChart>
+			<barChart>
+				<chart>
+					<reportElement stretchType="RelativeToBandHeight" x="0" y="220" width="802" height="63" uuid="08af0de1-f81e-4362-8541-6420bcc7f00e"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<categoryDataset>
+					<categorySeries>
+						<seriesExpression><![CDATA["EficienciaConductores"]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{Ingreso_Datos_CodConductor}]]></categoryExpression>
+						<valueExpression><![CDATA[$V{Ingreso_Datos_Eficiencia_Horas_Laboradas_1}]]></valueExpression>
+					</categorySeries>
+				</categoryDataset>
+				<barPlot>
+					<plot labelRotation="45.0"/>
+					<itemLabel/>
+					<categoryAxisFormat labelRotation="45.0">
+						<axisFormat/>
+					</categoryAxisFormat>
+					<valueAxisFormat>
+						<axisFormat/>
+					</valueAxisFormat>
+				</barPlot>
+			</barChart>
+			<break>
+				<reportElement x="0" y="283" width="100" height="1" uuid="f94bf51d-69d8-413e-bf1e-40ae51983172"/>
+			</break>
+			<barChart>
+				<chart>
+					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="0" y="50" width="802" height="50" uuid="1ca8ddac-b797-49e1-9723-6a84f3f02458"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<categoryDataset>
+					<categorySeries>
+						<seriesExpression><![CDATA["L/C"]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{Ingreso_Datos_Unidad}]]></categoryExpression>
+						<valueExpression><![CDATA[$V{Ingreso_Datos_Litros_Carrera_1}]]></valueExpression>
+					</categorySeries>
+				</categoryDataset>
+				<barPlot>
+					<plot/>
+					<itemLabel/>
+					<categoryAxisFormat>
+						<axisFormat/>
+					</categoryAxisFormat>
+					<valueAxisFormat>
+						<axisFormat/>
+					</valueAxisFormat>
+				</barPlot>
+			</barChart>
+		</band>
+	</summary>
+</jasperReport>

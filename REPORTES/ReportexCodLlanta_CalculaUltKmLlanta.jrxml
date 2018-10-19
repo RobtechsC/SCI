@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReportexCodLlanta_CalculaUltKmLlanta" language="groovy" pageWidth="802" pageHeight="555" orientation="Landscape" columnWidth="802" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="d1667aaf-4cac-49e7-9ea1-7d257b876310">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="FechaInicial" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="Unidad" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="CodEmpresa" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[Select SUM(Kilometros_Recorridos) from Ingreso_Datos
+WHERE
+Fecha>=$P{FechaInicial} and Unidad=$P{Unidad} and CodigoEmpresa=$P{CodEmpresa}]]>
+	</queryString>
+	<field name="SUM(Kilometros_Recorridos)" class="java.lang.Double"/>
+	<variable name="CalculoUltKm" class="java.lang.Float">
+		<variableExpression><![CDATA[$F{SUM(Kilometros_Recorridos)}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+</jasperReport>

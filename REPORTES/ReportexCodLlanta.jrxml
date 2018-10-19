@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReportexCodLlanta" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="e4d4e419-edb8-4824-b47e-dd2f72c92cb6">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="CodLlanta" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\SCI\\REPORTES\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="CodigoEmpresa" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     Mantenimiento_MovimientoLlantas.`Fecha` AS Mantenimiento_MovimientoLlantas_Fecha,
+     Mantenimiento_MovimientoLlantas.`Unidad` AS Mantenimiento_MovimientoLlantas_Unidad,
+     Mantenimiento_MovimientoLlantas.`Kilometraje` AS Mantenimiento_MovimientoLlantas_Kilometraje,
+     Mantenimiento_MovimientoLlantas.`Cod_Llanta_Sale` AS Mantenimiento_MovimientoLlantas_Cod_Llanta_Sale,
+     Mantenimiento_MovimientoLlantas.`Profundidad_Llanta_Sale` AS Mantenimiento_MovimientoLlantas_Profundidad_Llanta_Sale,
+     Mantenimiento_MovimientoLlantas.`Posicion_Llanta_Sale` AS Mantenimiento_MovimientoLlantas_Posicion_Llanta_Sale,
+     Mantenimiento_MovimientoLlantas.`Destino_Llanta_Sale` AS Mantenimiento_MovimientoLlantas_Destino_Llanta_Sale,
+     Mantenimiento_MovimientoLlantas.`Cod_Llanta_Entra` AS Mantenimiento_MovimientoLlantas_Cod_Llanta_Entra,
+     Mantenimiento_MovimientoLlantas.`Profundidad_Llanta_Entra` AS Mantenimiento_MovimientoLlantas_Profundidad_Llanta_Entra,
+     Mantenimiento_MovimientoLlantas.`Posicion_Llanta_Entra` AS Mantenimiento_MovimientoLlantas_Posicion_Llanta_Entra,
+     Mantenimiento_MovimientoLlantas.`Presion_Aire_Llanta_Entra` AS Mantenimiento_MovimientoLlantas_Presion_Aire_Llanta_Entra,
+     Mantenimiento_MovimientoLlantas.`IdEmpresa` AS Mantenimiento_MovimientoLlantas_IdEmpresa,
+     Empresas.`Nombre_Empresa` AS Empresas_Nombre_Empresa,
+     Mantenimiento_MovimientoLlantas.`Consecutivo` AS Mantenimiento_MovimientoLlantas_Consecutivo
+FROM
+     `Empresas` Empresas INNER JOIN `Mantenimiento_MovimientoLlantas` Mantenimiento_MovimientoLlantas ON Empresas.`CodigoEmpresa` = Mantenimiento_MovimientoLlantas.`IdEmpresa`
+WHERE
+     (Mantenimiento_MovimientoLlantas.`Cod_Llanta_Sale` = $P{CodLlanta}
+  OR Mantenimiento_MovimientoLlantas.`Cod_Llanta_Entra` = $P{CodLlanta}) and Mantenimiento_MovimientoLlantas.`IdEmpresa` LIKE $P{CodigoEmpresa}
+ORDER BY
+     Mantenimiento_MovimientoLlantas.`Fecha` ASC]]>
+	</queryString>
+	<field name="Mantenimiento_MovimientoLlantas_Fecha" class="java.sql.Date"/>
+	<field name="Mantenimiento_MovimientoLlantas_Unidad" class="java.lang.Integer"/>
+	<field name="Mantenimiento_MovimientoLlantas_Kilometraje" class="java.lang.Float"/>
+	<field name="Mantenimiento_MovimientoLlantas_Cod_Llanta_Sale" class="java.lang.String"/>
+	<field name="Mantenimiento_MovimientoLlantas_Profundidad_Llanta_Sale" class="java.lang.Float"/>
+	<field name="Mantenimiento_MovimientoLlantas_Posicion_Llanta_Sale" class="java.lang.String"/>
+	<field name="Mantenimiento_MovimientoLlantas_Destino_Llanta_Sale" class="java.lang.Integer"/>
+	<field name="Mantenimiento_MovimientoLlantas_Cod_Llanta_Entra" class="java.lang.String"/>
+	<field name="Mantenimiento_MovimientoLlantas_Profundidad_Llanta_Entra" class="java.lang.Float"/>
+	<field name="Mantenimiento_MovimientoLlantas_Posicion_Llanta_Entra" class="java.lang.String"/>
+	<field name="Mantenimiento_MovimientoLlantas_Presion_Aire_Llanta_Entra" class="java.lang.Float"/>
+	<field name="Mantenimiento_MovimientoLlantas_IdEmpresa" class="java.lang.Integer"/>
+	<field name="Empresas_Nombre_Empresa" class="java.lang.String"/>
+	<field name="Mantenimiento_MovimientoLlantas_Consecutivo" class="java.lang.Integer"/>
+	<variable name="Mantenimiento_MovimientoLlantas_Kilometraje_1" class="java.lang.Float" resetType="Group" resetGroup="Unidad" calculation="Sum">
+		<variableExpression><![CDATA[($F{Mantenimiento_MovimientoLlantas_Cod_Llanta_Sale}.equals($P{CodLlanta}))?$F{Mantenimiento_MovimientoLlantas_Kilometraje}:0]]></variableExpression>
+	</variable>
+	<variable name="Mantenimiento_MovimientoLlantas_Consecutivo_1" class="java.lang.Integer" resetType="Group" resetGroup="Unidad" calculation="DistinctCount">
+		<variableExpression><![CDATA[$F{Mantenimiento_MovimientoLlantas_Consecutivo}]]></variableExpression>
+	</variable>
+	<variable name="CalculoUltimosKm" class="java.lang.Float"/>
+	<variable name="Ultimoestado" class="java.lang.String">
+		<variableExpression><![CDATA[($F{Mantenimiento_MovimientoLlantas_Cod_Llanta_Sale}.equals($P{CodLlanta}))?"Desinstala":($F{Mantenimiento_MovimientoLlantas_Cod_Llanta_Entra}.equals($P{CodLlanta}))?"Instala":"N/A"]]></variableExpression>
+	</variable>
+	<variable name="CodLlantaTx" class="java.lang.String"/>
+	<group name="Empresa">
+		<groupExpression><![CDATA[$F{Empresas_Nombre_Empresa}]]></groupExpression>
+		<groupHeader>
+			<band height="25">
+				<textField>
+					<reportElement x="2" y="0" width="800" height="20" uuid="58b66b48-468d-430c-8e13-a0cd490efcdc"/>
+					<textElement>
+						<font size="14" isBold="true" isUnderline="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{Empresas_Nombre_Empresa}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+	</group>
+	<group name="Unidad">
+		<groupExpression><![CDATA[$P{CodLlanta}]]></groupExpression>
+		<groupHeader>
+			<band height="65">
+				<textField pattern="">
+					<reportElement x="0" y="0" width="163" height="20" uuid="b2e851a1-2381-4fdb-8e04-5b386e0ad377"/>
+					<textElement>
+						<font size="12" isBold="true" isUnderline="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{CodLlanta}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement mode="Opaque" x="2" y="20" width="306" height="20" forecolor="#FFFFFF" backcolor="#003366" uuid="d0dc74f1-b921-49a0-8642-46a94bb68530"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="12" isBold="true" isUnderline="true"/>
+					</textElement>
+					<text><![CDATA[Detalles del Movimiento]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="64" y="42" width="54" height="15" uuid="af2edf4d-5b9c-4ae9-9e9a-d8ee084e4d11"/>
+					<textElement>
+						<font isUnderline="true"/>
+					</textElement>
+					<text><![CDATA[Unidad]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="118" y="42" width="66" height="15" uuid="57da8db4-8dd2-476e-be33-260a4e20154a"/>
+					<textElement>
+						<font isUnderline="true"/>
+					</textElement>
+					<text><![CDATA[Kilometraje]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="184" y="42" width="66" height="15" uuid="ca49f7ab-6553-4a76-86bb-a2d0819b579a"/>
+					<textElement>
+						<font isUnderline="true"/>
+					</textElement>
+					<text><![CDATA[Movimiento]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="250" y="42" width="62" height="15" uuid="9390624b-904a-44c9-a605-dd98cbf6070c"/>
+					<textElement textAlignment="Center">
+						<font isUnderline="true"/>
+					</textElement>
+					<text><![CDATA[Posicion]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="312" y="42" width="69" height="15" uuid="b06d6c4e-4726-4c52-bf8d-03f788a19c57"/>
+					<textElement textAlignment="Center">
+						<font isUnderline="true"/>
+					</textElement>
+					<text><![CDATA[Profundidad]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="381" y="42" width="60" height="15" uuid="80e790ec-1245-4321-8089-31144955a7b5"/>
+					<textElement textAlignment="Center">
+						<font isUnderline="true"/>
+					</textElement>
+					<text><![CDATA[Presion Aire]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="2" y="42" width="62" height="15" uuid="e1481479-c521-4651-90b9-0c7169611c40"/>
+					<textElement>
+						<font isUnderline="true"/>
+					</textElement>
+					<text><![CDATA[Fecha]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="20">
+				<subreport>
+					<reportElement x="0" y="0" width="800" height="0" uuid="942ce2a6-1987-4c33-9eee-e51b320110ab"/>
+					<subreportParameter name="Unidad">
+						<subreportParameterExpression><![CDATA[$F{Mantenimiento_MovimientoLlantas_Unidad}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="CodEmpresa">
+						<subreportParameterExpression><![CDATA[$P{CodigoEmpresa}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="FechaInicial">
+						<subreportParameterExpression><![CDATA[$F{Mantenimiento_MovimientoLlantas_Fecha}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<returnValue subreportVariable="CalculoUltKm" toVariable="CalculoUltimosKm"/>
+					<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "ReportexCodLlanta_CalculaUltKmLlanta.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+			<band height="25">
+				<subreport>
+					<reportElement x="0" y="0" width="800" height="21" uuid="3aa783f0-3d1c-483a-9e72-e61ce2c9d56f"/>
+					<subreportParameter name="CodigoEmpresa">
+						<subreportParameterExpression><![CDATA[$P{CodigoEmpresa}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="KmRecorridos">
+						<subreportParameterExpression><![CDATA[($F{Mantenimiento_MovimientoLlantas_Cod_Llanta_Entra}.equals( $P{CodLlanta}))?$V{Mantenimiento_MovimientoLlantas_Kilometraje_1}+$V{CalculoUltimosKm}:$V{Mantenimiento_MovimientoLlantas_Kilometraje_1}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="CodLlanta">
+						<subreportParameterExpression><![CDATA[$P{CodLlanta}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="CantidadMovimientos">
+						<subreportParameterExpression><![CDATA[$V{Mantenimiento_MovimientoLlantas_Consecutivo_1}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "ReportexCodLlanta_subreportdetallellanta.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<image>
+				<reportElement x="10" y="10" width="200" height="49" uuid="c678d0e0-34e3-488b-8a2d-62a21f3d5819"/>
+				<imageExpression><![CDATA["C:\\SCI\\logorobtech.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="231" y="12" width="438" height="27" uuid="03c84e28-0fa1-4905-b99f-53c48350fa3f"/>
+				<textElement textAlignment="Center">
+					<font size="16" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[REPORTE DETALLADO POR CODIGO DE LLANTA]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="231" y="39" width="438" height="20" uuid="5af2a006-39f6-4c5f-bb19-2007dacf6c57"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{CodLlanta}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="723" y="12" width="58" height="60" uuid="7601c12e-5183-4c75-a04b-8ff5d6cd648c"/>
+				<imageExpression><![CDATA["C:\\SCI\\tatsa2.png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<detail>
+		<band height="16" splitType="Stretch">
+			<textField>
+				<reportElement x="64" y="0" width="54" height="15" uuid="5e71820a-5cda-47f3-abc0-9a15cb6fedaf"/>
+				<textFieldExpression><![CDATA[$F{Mantenimiento_MovimientoLlantas_Unidad}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="118" y="0" width="66" height="15" uuid="3d8ac416-4944-4b64-8ad3-712b7538eaa7"/>
+				<textFieldExpression><![CDATA[($F{Mantenimiento_MovimientoLlantas_Cod_Llanta_Sale}.equals($P{CodLlanta}))?$F{Mantenimiento_MovimientoLlantas_Kilometraje}:""]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement x="184" y="0" width="66" height="15" uuid="c62ce4cf-8561-4fae-b222-e0d672f0fb2b"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$V{Ultimoestado}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement x="250" y="0" width="62" height="15" uuid="62648c77-b47d-4087-ba4f-c092a1509010">
+					<printWhenExpression><![CDATA[($F{Mantenimiento_MovimientoLlantas_Cod_Llanta_Sale}.equals($P{CodLlanta}))?true:($F{Mantenimiento_MovimientoLlantas_Cod_Llanta_Entra}.equals($P{CodLlanta}))?true:false]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[($F{Mantenimiento_MovimientoLlantas_Cod_Llanta_Sale}.equals($P{CodLlanta}))?$F{Mantenimiento_MovimientoLlantas_Posicion_Llanta_Sale}:($F{Mantenimiento_MovimientoLlantas_Cod_Llanta_Entra}.equals($P{CodLlanta}))?$F{Mantenimiento_MovimientoLlantas_Posicion_Llanta_Entra}:"N/A"]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement x="381" y="0" width="60" height="15" isRemoveLineWhenBlank="true" uuid="95dd14b4-eed5-48e1-a795-b33bf66ad148">
+					<printWhenExpression><![CDATA[($F{Mantenimiento_MovimientoLlantas_Cod_Llanta_Entra}.equals($P{CodLlanta}))?true:false]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[($F{Mantenimiento_MovimientoLlantas_Cod_Llanta_Sale}.equals($P{CodLlanta}))?null:($F{Mantenimiento_MovimientoLlantas_Cod_Llanta_Entra}.equals($P{CodLlanta}))?$F{Mantenimiento_MovimientoLlantas_Presion_Aire_Llanta_Entra}:false]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="0" y="0" width="64" height="15" uuid="0a432195-1bed-4715-bcd2-61446ef18e11"/>
+				<textFieldExpression><![CDATA[$F{Mantenimiento_MovimientoLlantas_Fecha}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="312" y="0" width="69" height="15" uuid="56a7f412-340b-4514-bc94-607f91f51f76"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[($F{Mantenimiento_MovimientoLlantas_Cod_Llanta_Sale}.equals($P{CodLlanta}))?$F{Mantenimiento_MovimientoLlantas_Profundidad_Llanta_Sale}:($F{Mantenimiento_MovimientoLlantas_Cod_Llanta_Entra}.equals($P{CodLlanta}))?$F{Mantenimiento_MovimientoLlantas_Profundidad_Llanta_Entra}:false]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+</jasperReport>
