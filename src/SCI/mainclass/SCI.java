@@ -7,26 +7,15 @@ package SCI.mainclass;
 import CLASES.DataUser;
 import PANTALLAS.Login;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.nio.CharBuffer;
-import java.nio.file.CopyOption;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.StandardCopyOption;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 
 /**
  *
  * @author Esteban Robles
  */
 public class SCI {
-    public String currentversion="2.0";
+    public String currentversion="1.0";
     
     /**
      * @param args the command line arguments
